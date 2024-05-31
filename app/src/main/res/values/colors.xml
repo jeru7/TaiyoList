@@ -12,5 +12,6 @@
     <color name="light">#FFFFFF</color>
     <color name="dark">#000000</color>
     <color name="placeholder">#8c8c8c</color>
+    <color name="dark_half_transparent">#80000000</color>
 
 </resources>

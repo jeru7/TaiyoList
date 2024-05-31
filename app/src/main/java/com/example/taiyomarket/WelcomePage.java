@@ -3,11 +3,16 @@ package com.example.taiyomarket;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.taiyomarket.logins.Register;
+import com.example.taiyomarket.logins.SignIn;
 
 public class WelcomePage extends AppCompatActivity {
 
@@ -23,8 +28,9 @@ public class WelcomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
 
-        xViewPager = (ViewPager) findViewById(R.id.slideViewPager);
-        xDotLayout = (LinearLayout) findViewById(R.id.bulletIndicatorLayout);
+//      Variables for ViewPage and Dots
+        xViewPager = (ViewPager) findViewById(R.id.slide_view_pager);
+        xDotLayout = (LinearLayout) findViewById(R.id.bullet_indicator_layout);
 
         viewPagerAdapter = new PagerAdapter(this);
 
@@ -32,6 +38,29 @@ public class WelcomePage extends AppCompatActivity {
 
         displayIndicator(0);
         xViewPager.addOnPageChangeListener(viewListener);
+//      Variables for buttons
+        signIn = (Button) findViewById(R.id.sign_in_btn);
+        register = (Button) findViewById(R.id.register_btn);
+
+        attachBtnListener(signIn, register);
+    }
+
+    public void attachBtnListener(Button sign_in, Button register) {
+        sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WelcomePage.this, SignIn.class);
+                startActivity(i);
+            }
+        });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WelcomePage.this, Register.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void displayIndicator(int pos) {
