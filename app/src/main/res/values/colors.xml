@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--  Palette  -->
+    <color name="mainColor">#FFF2D7</color>
+    <color name="secondaryColor">#FFE0B5</color>
+    <color name="mainHighlight">#F8C794</color>
+    <color name="extra_color1">#028391</color>
+    <color name="extra_color2">#01204E</color>
+    <color name="extra_color3">#FEAE6F</color>
+
+<!-- Font -->
+    <color name="light">#FFFFFF</color>
+    <color name="dark">#000000</color>
+    <color name="placeholder">#8c8c8c</color>
+
+</resources>
