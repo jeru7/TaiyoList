@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondaryColor"
+    android:background="@color/extra_color2"
     tools:context=".MainActivity">
 
 
@@ -13,37 +13,36 @@
         android:id="@+id/icon"
         android:layout_width="186dp"
         android:layout_height="196dp"
-        android:layout_marginTop="292dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="288dp"
+        android:translationY="-40dp"
         app:srcCompat="@drawable/taiyo_icon" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/text_view1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/bold"
         android:text="@string/app_name1"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:translationY="-40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:translationY="-80dp"
+        android:layout_below="@id/icon"
+        android:layout_centerHorizontal="true"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-80dp"
         android:fontFamily="@font/bold"
         android:text="@string/app_name2"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text_view1"
         android:textSize="25dp"
-        android:translationY="-40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 
