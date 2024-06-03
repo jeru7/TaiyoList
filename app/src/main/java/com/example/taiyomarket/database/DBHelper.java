@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import com.example.taiyomarket.Classes.User;
 
 public class DBHelper extends SQLiteOpenHelper{
-    private static final String DB_NAME = "TaiyoMarket.db";
+    private static final String DB_NAME = "TAIYOMARKET";
     private static final int DB_VERSION = 1;
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -71,6 +71,7 @@ public class DBHelper extends SQLiteOpenHelper{
             }
             db.close();
         }
+
     }
 
     @Override

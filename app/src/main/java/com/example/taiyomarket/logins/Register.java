@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,6 @@ import android.widget.Toast;
 
 import java.util.regex.*;
 
-import com.example.taiyomarket.LandingPage;
 import com.example.taiyomarket.R;
 import com.example.taiyomarket.database.DBHelper;
 
@@ -24,7 +24,7 @@ public class Register extends AppCompatActivity {
 
 //    variables attached to elements in Register activity
     Button register;
-    ImageView back;
+    ImageView back, passwordToggler, confirmPassToggler;
     TextView sign_in;
     EditText email, password, passwordConfirmation;
 
@@ -45,14 +45,18 @@ public class Register extends AppCompatActivity {
         db = new DBHelper(this);
 
         back = (ImageView) findViewById(R.id.back_btn);
+        passwordToggler = (ImageView) findViewById(R.id.password_toggler);
+        confirmPassToggler = (ImageView) findViewById(R.id.confirm_password_toggler);
+
         register = (Button) findViewById(R.id.register_btn);
+
         email = (EditText) findViewById(R.id.email_field);
         password = (EditText) findViewById(R.id.password_field);
         passwordConfirmation = (EditText) findViewById(R.id.confirm_password_field);
 
         attachTextChangeListeners();
         buttonEnabler(register);
-        attachButtonEvents(back, register);
+        attachButtonEvents(back, register, passwordToggler, confirmPassToggler);
     }
 
 //    registers the user and INSERT its information to the users table in TaiyoMarket.db
@@ -136,11 +140,30 @@ public class Register extends AppCompatActivity {
         });
     }
 
-//    handles email value (pwede maglagay ng regex for emails)
+//  handles email format validation
+    public Boolean emailChecker(String email) {
+        TextView emailGuide = findViewById(R.id.email_guide);
+        String pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+        if(db.getUser(email) == null) {
+            if(email.matches(pattern)) {
+                emailGuide.setText("");
+                return true;
+            } else {
+                emailGuide.setText("Invalid email format.");
+                return false;
+            }
+        } else {
+            emailGuide.setText("Email already exists.");
+            return false;
+        }
+    };
+
+//    handles email value
     public void emailHandler(EditText email) {
         String emailValue = email.getText().toString();
 
-        if(!emailValue.isEmpty()) {
+        if(!emailValue.isEmpty() && emailChecker(emailValue)) {
             confirmedEmail = emailValue;
             isEmail = true;
         } else {
@@ -152,8 +175,8 @@ public class Register extends AppCompatActivity {
     public void passwordHandler(EditText password) {
         String passwordValue = password.getText().toString();
 
-        if (!passwordValue.isEmpty()) {
-            passwordChecker(passwordValue);
+        if (!passwordValue.isEmpty() && passwordChecker(passwordValue)) {
+            confirmedPassword = passwordValue;
             isPassword = true;
         } else {
             isPassword = false;
@@ -191,10 +214,8 @@ public class Register extends AppCompatActivity {
     }
 
 //    validate the password format based on the given regex pattern
-    public void passwordChecker(String password) {
+    public Boolean passwordChecker(String password) {
         TextView passwordGuide = (TextView) findViewById(R.id.password_guide);
-
-        Boolean isValid = false;
 
 //        pattern: at least 8 characters, must have at least 1 special character AND 1 capital letter
         final String PASSWORD_PATTERN = "^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$";
@@ -212,10 +233,12 @@ public class Register extends AppCompatActivity {
             }
         } else {
             passwordGuide.setText("");
+            return true;
         }
+        return false;
     }
 
-    public void attachButtonEvents(ImageView back, Button register) {
+    public void attachButtonEvents(ImageView back, Button register, ImageView passwordToggler, ImageView confirmPassToggler) {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,6 +250,38 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerUser();
+            }
+        });
+
+        passwordToggler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentPos = password.getSelectionStart();
+
+                if(password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    passwordToggler.setImageResource(R.drawable.eye_closed);
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    passwordToggler.setImageResource(R.drawable.eye_icon);
+                    password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+                password.setSelection(currentPos);
+            }
+        });
+
+        confirmPassToggler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentPos = passwordConfirmation.getSelectionStart();
+
+                if(passwordConfirmation.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    confirmPassToggler.setImageResource(R.drawable.eye_closed);
+                    passwordConfirmation.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    confirmPassToggler.setImageResource(R.drawable.eye_icon);
+                    passwordConfirmation.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+                passwordConfirmation.setSelection(currentPos);
             }
         });
     }

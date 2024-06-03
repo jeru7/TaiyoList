@@ -77,8 +77,10 @@ public class SignIn extends AppCompatActivity {
                 int currentPos = password.getSelectionStart();
 
                 if(password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    passToggler.setImageResource(R.drawable.eye_closed);
                     password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 } else {
+                    passToggler.setImageResource(R.drawable.eye_icon);
                     password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 }
 
