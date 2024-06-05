@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.taiyomarket.Classes.User;
+import com.example.taiyomarket.classes.User;
 
 public class DBHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "TAIYOMARKET";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -36,13 +36,18 @@ public class DBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         User user = null;
 
-        Cursor cursor = db.query("users", null, "email = ?", new String[]{email}, null, null, null);
+        Cursor cursor = db.query("users", null, "email = ? COLLATE NOCASE", new String[]{email}, null, null, null);
 
-        if (cursor != null && cursor.moveToFirst()) {
-            int id = cursor.getInt(cursor.getColumnIndex("id"));
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            int id = cursor.getInt(cursor.getColumnIndex("user_id"));
             String userEmail = cursor.getString(cursor.getColumnIndex("email"));
             String password = cursor.getString(cursor.getColumnIndex("password"));
             user = new User(id, userEmail, password);
+            cursor.close();
+        }
+
+        if(cursor != null) {
             cursor.close();
         }
 
@@ -52,8 +57,8 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public Boolean checkUser(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {"id"};
-        String querySelection = "email = ? AND password = ?";
+        String[] columns = {"user_id"};
+        String querySelection = "email = ? COLLATE NOCASE AND password = ?";
         String[] selectionArgs = {email, password};
 
         Cursor cursor = null;
@@ -76,10 +81,9 @@ public class DBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price REAL, quantity INTEGER, category_id INTEGER, FOREIGN KEY(category_id) REFERENCES categories(id))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS orders (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, product_id INTEGER, quantity INTEGER, FOREIGN KEY(user_id) REFERENCES users(id), FOREIGN KEY(product_id) REFERENCES products(id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, user_name TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS grocery_list (list_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INT, list_name TEXT, date_created DATE, last_update DATE, FOREIGN KEY(user_id) REFERENCES users(user_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS item (item_id INTEGER PRIMARY KEY AUTOINCREMENT, list_id INT, item_name TEXT, quantity INT, date_created DATE, status BOOLEAN)");
 
     }
 
@@ -89,6 +93,8 @@ public class DBHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS products");
         db.execSQL("DROP TABLE IF EXISTS categories");
         db.execSQL("DROP TABLE IF EXISTS orders");
+        db.execSQL("DROP TABLE IF EXISTS grocery_list");
+        db.execSQL("DROP TABLE IF EXISTS item");
 
         onCreate(db);
     }

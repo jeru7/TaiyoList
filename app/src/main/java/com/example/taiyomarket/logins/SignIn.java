@@ -4,18 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.taiyomarket.LandingPage;
+import com.example.taiyomarket.main.LandingPage;
 import com.example.taiyomarket.R;
 import com.example.taiyomarket.database.DBHelper;
-
-import org.w3c.dom.Text;
 
 public class SignIn extends AppCompatActivity {
     ImageView back, passToggler;
@@ -26,6 +26,9 @@ public class SignIn extends AppCompatActivity {
 
     Button register, signIn;
 
+    String emailFinal, passwordFinal;
+    Boolean isSignInValid = false;
+
     DBHelper db;
 
     @Override
@@ -35,19 +38,29 @@ public class SignIn extends AppCompatActivity {
 
         db = new DBHelper(this);
 
-//        input fields
         email = (EditText) findViewById(R.id.email_field);
         password = (EditText) findViewById(R.id.password_field);
-
-
-//        buttons - (button like)
         back = (ImageView) findViewById(R.id.back_btn);
         passToggler = (ImageView) findViewById(R.id.password_toggler);
         register = (Button) findViewById(R.id.register_btn);
         signIn = (Button) findViewById(R.id.sign_in_btn);
         forgotPass = (TextView) findViewById(R.id.forgot_pass);
 
-        attachButtonEvents(back, passToggler, register, signIn, forgotPass, password, email, loginGuide);
+        attachTextListener();
+        attachButtonEvents();
+    }
+
+    public void signInHandler(String email, String password) {
+        emailFinal = email;
+        passwordFinal = password;
+
+        if(!emailFinal.isEmpty() && !passwordFinal.isEmpty()) {
+            isSignInValid = true;
+        } else {
+            isSignInValid = false;
+        }
+
+        buttonEnabler();
     }
 
     public void loginHandler(String email, String password) {
@@ -56,14 +69,61 @@ public class SignIn extends AppCompatActivity {
         if(db.checkUser(email, password)) {
             Intent i = new Intent(SignIn.this, LandingPage.class);
             loginGuide.setText("");
-            i.putExtra("user_email", email);
+            i.putExtra("email", email);
             startActivity(i);
         } else {
             loginGuide.setText("Incorrect email or password");
         }
     }
 
-    public void attachButtonEvents(ImageView back, ImageView passToggler, Button register, Button signIn, TextView forgotPass, EditText password, EditText email, TextView loginGuide) {
+    public void attachTextListener() {
+
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                signInHandler(s.toString(), password.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                signInHandler(email.getText().toString(), s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    public void buttonEnabler() {
+        if(isSignInValid) {
+            signIn.setEnabled(true);
+            signIn.setBackgroundResource(R.drawable.enabled_button);
+        } else {
+            signIn.setEnabled(false);
+            signIn.setBackgroundResource(R.drawable.disabled_button);
+        }
+    }
+
+    public void attachButtonEvents() {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,10 +159,7 @@ public class SignIn extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailInput = email.getText().toString();
-                String passwordInput = password.getText().toString();
-
-                loginHandler(emailInput, passwordInput);
+                loginHandler(emailFinal, passwordFinal);
             }
         });
     }

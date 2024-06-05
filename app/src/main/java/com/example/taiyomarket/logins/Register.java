@@ -56,7 +56,7 @@ public class Register extends AppCompatActivity {
 
         attachTextChangeListeners();
         buttonEnabler(register);
-        attachButtonEvents(back, register, passwordToggler, confirmPassToggler);
+        attachButtonEvents();
     }
 
 //    registers the user and INSERT its information to the users table in TaiyoMarket.db
@@ -238,7 +238,7 @@ public class Register extends AppCompatActivity {
         return false;
     }
 
-    public void attachButtonEvents(ImageView back, Button register, ImageView passwordToggler, ImageView confirmPassToggler) {
+    public void attachButtonEvents() {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

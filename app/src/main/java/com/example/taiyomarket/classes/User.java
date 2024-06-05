@@ -1,4 +1,4 @@
-package com.example.taiyomarket.Classes;
+package com.example.taiyomarket.classes;
 
 public class User {
     private int id;

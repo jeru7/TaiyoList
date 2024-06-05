@@ -1,4 +1,4 @@
-package com.example.taiyomarket;
+package com.example.taiyomarket.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.taiyomarket.Classes.User;
+import com.example.taiyomarket.R;
+import com.example.taiyomarket.classes.User;
 import com.example.taiyomarket.database.DBHelper;
 
 public class LandingPage extends AppCompatActivity {
@@ -22,11 +23,11 @@ public class LandingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
-        db = new DBHelper(this);
-        display = (TextView) findViewById(R.id.display);
+        display = findViewById(R.id.list_title);
 
+        db = new DBHelper(this);
         Intent i = getIntent();
-        String userEmail = getIntent().getStringExtra("user_email");
+        String userEmail = getIntent().getStringExtra("email");
 
         if (userEmail != null) {
             currentUser = db.getUser(userEmail);

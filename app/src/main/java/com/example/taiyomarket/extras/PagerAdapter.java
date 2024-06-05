@@ -1,4 +1,4 @@
-package com.example.taiyomarket;
+package com.example.taiyomarket.extras;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.example.taiyomarket.R;
 
 public class PagerAdapter extends androidx.viewpager.widget.PagerAdapter
 {

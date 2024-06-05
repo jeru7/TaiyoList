@@ -1,10 +1,13 @@
-package com.example.taiyomarket;
+package com.example.taiyomarket.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.taiyomarket.R;
+import com.example.taiyomarket.extras.WelcomePage;
 
 public class MainActivity extends AppCompatActivity {
 

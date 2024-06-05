@@ -4,16 +4,169 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/extra_color1"
-    tools:context=".LandingPage">
+    android:background="@color/mainColor"
+    tools:context=".main.LandingPage">
 
-    <TextView
-        android:id="@+id/display"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/relative_1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/bold"
-        android:textSize="24sp"
-        />
+        android:orientation="horizontal"
+        android:background="@color/extra_color1"
+        android:gravity="center_vertical"
+        android:layout_alignParentStart="true"
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="16dp">
+
+        <LinearLayout
+            android:id="@+id/linear_1_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                app:srcCompat="@drawable/taiyoooo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name1"
+                android:fontFamily="@font/bold"
+                android:textSize="20sp"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/sort"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/sort_asc"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relative_1"
+        android:layout_above="@id/linear_2"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/list_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="My list"
+            android:textSize="32sp" />
+
+        <ScrollView
+            android:id="@+id/scrollview_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/list_title"
+            android:padding="8dp">
+
+            <RelativeLayout
+                android:id="@+id/list_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_list_container"
+                android:padding="16dp"
+                >
+
+                <TextView
+                    android:id="@+id/list_name_pholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Groceries 1"
+                    android:fontFamily="@font/bold"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:id="@+id/update_pholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Last updated since ***"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/placeholder"
+                    />
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/extra_color1"
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="16dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/list_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/list"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="List"
+                android:fontFamily="@font/medium"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/user"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:fontFamily="@font/medium"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+
 
 </RelativeLayout>
