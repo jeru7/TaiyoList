@@ -33,7 +33,7 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
     LinearLayout emptyLayout, listLayout, profileLayout;
     RelativeLayout mainPage, topBar;
     FrameLayout switchableContainer;
-    ExtendedFloatingActionButton addNewList;
+    ExtendedFloatingActionButton addNewListBtn;
     DBHelper db;
     User currentUser;
     AddListPage addListPage;
@@ -49,7 +49,7 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
         mainPage = (RelativeLayout) findViewById(R.id.relative_2);
         switchableContainer = (FrameLayout) findViewById(R.id.switchable_view);
 
-        addNewList = (ExtendedFloatingActionButton) findViewById(R.id.add_new_list);
+        addNewListBtn = (ExtendedFloatingActionButton) findViewById(R.id.add_new_list);
         listLayout = (LinearLayout) findViewById(R.id.list_layout);
         profileLayout = (LinearLayout) findViewById(R.id.profile_layout);
 
@@ -69,7 +69,7 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
     }
 
     public void attachButtonEvents() {
-        addNewList.setOnClickListener(new View.OnClickListener() {
+        addNewListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutInflater inflater = LayoutInflater.from(LandingPage.this);
