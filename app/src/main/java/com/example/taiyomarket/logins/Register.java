@@ -14,10 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.Signature;
 import java.util.regex.*;
 
 import com.example.taiyomarket.R;
 import com.example.taiyomarket.database.DBHelper;
+
+import org.w3c.dom.Text;
 
 
 public class Register extends AppCompatActivity {
@@ -49,6 +52,7 @@ public class Register extends AppCompatActivity {
         confirmPassToggler = (ImageView) findViewById(R.id.confirm_password_toggler);
 
         register = (Button) findViewById(R.id.register_btn);
+        sign_in = (TextView) findViewById(R.id.sign_in_btn);
 
         email = (EditText) findViewById(R.id.email_field);
         password = (EditText) findViewById(R.id.password_field);
@@ -282,6 +286,14 @@ public class Register extends AppCompatActivity {
                     passwordConfirmation.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 }
                 passwordConfirmation.setSelection(currentPos);
+            }
+        });
+
+        sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Register.this, SignIn.class);
+                startActivity(i);
             }
         });
     }

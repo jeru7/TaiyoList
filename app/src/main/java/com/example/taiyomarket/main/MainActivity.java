@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.taiyomarket.R;
-import com.example.taiyomarket.extras.WelcomePage;
 
 public class MainActivity extends AppCompatActivity {
 

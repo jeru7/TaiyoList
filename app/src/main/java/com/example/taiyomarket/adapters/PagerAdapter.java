@@ -1,4 +1,4 @@
-package com.example.taiyomarket.extras;
+package com.example.taiyomarket.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

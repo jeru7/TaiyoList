@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.text.TextWatcher;
@@ -46,6 +47,7 @@ public class SignIn extends AppCompatActivity {
         signIn = (Button) findViewById(R.id.sign_in_btn);
         forgotPass = (TextView) findViewById(R.id.forgot_pass);
 
+        buttonEnabler();
         attachTextListener();
         attachButtonEvents();
     }
@@ -67,11 +69,13 @@ public class SignIn extends AppCompatActivity {
         loginGuide = (TextView) findViewById(R.id.login_guide);
 
         if(db.checkUser(email, password)) {
+            Log.d("SignIn", "User authenticated. Proceeding to LandingPage.");
             Intent i = new Intent(SignIn.this, LandingPage.class);
             loginGuide.setText("");
             i.putExtra("email", email);
             startActivity(i);
         } else {
+            Log.d("SignIn", "Incorrect email or password");
             loginGuide.setText("Incorrect email or password");
         }
     }

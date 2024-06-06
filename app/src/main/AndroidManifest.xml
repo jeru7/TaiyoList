@@ -13,6 +13,9 @@
         android:theme="@style/Theme.TaiyoMarket"
         tools:targetApi="31">
         <activity
+            android:name=".main.AddListPage"
+            android:exported="false" />
+        <activity
             android:name=".main.LandingPage"
             android:exported="false" />
         <activity
@@ -22,7 +25,7 @@
             android:name=".logins.SignIn"
             android:exported="false" />
         <activity
-            android:name=".extras.WelcomePage"
+            android:name=".main.WelcomePage"
             android:exported="false" />
         <activity
             android:name=".main.MainActivity"

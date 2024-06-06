@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainColor"
-    tools:context=".extras.WelcomePage"
+    tools:context=".main.WelcomePage"
     android:padding="16dp">
 
     <ImageView

@@ -43,7 +43,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/sort"
+            android:id="@+id/sort_list"
             android:layout_width="32dp"
             android:layout_height="32dp"
             app:srcCompat="@drawable/sort_asc"
@@ -68,48 +68,69 @@
             android:text="My list"
             android:textSize="32sp" />
 
-        <ScrollView
-            android:id="@+id/scrollview_1"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/list_title"
-            android:padding="8dp">
+            android:padding="8dp"
+            />
 
-            <RelativeLayout
-                android:id="@+id/list_container"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/empty_layout_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                app:srcCompat="@drawable/taiyoooo" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_list_container"
-                android:padding="16dp"
-                >
+                android:fontFamily="@font/medium"
+                android:text="Plan out your groceries!"
+                android:textColor="@color/placeholder"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/list_name_pholder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Groceries 1"
-                    android:fontFamily="@font/bold"
-                    android:textSize="16sp"
-                    />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="Click the plus sign button to create your list"
+                android:textAlignment="center"
+                android:textColor="@color/placeholder"
+                android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/update_pholder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Last updated since ***"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/regular"
-                    android:textSize="12sp"
-                    android:textColor="@color/placeholder"
-                    />
+        </LinearLayout>
 
-            </RelativeLayout>
-
-
-        </ScrollView>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_new_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="+ New List"
+            android:textSize="20sp"
+            android:fontFamily="@font/bold"
+            android:backgroundTint="@color/extra_color4"/>
 
     </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/switchable_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/linear_2"
+        />
 
     <LinearLayout
         android:id="@+id/linear_2"

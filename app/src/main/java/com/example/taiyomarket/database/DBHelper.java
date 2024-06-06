@@ -8,7 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.taiyomarket.classes.ListItem;
 import com.example.taiyomarket.classes.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "TAIYOMARKET";
@@ -17,7 +21,9 @@ public class DBHelper extends SQLiteOpenHelper{
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-//    returns -1 if there's a problem in adding the user to users table.
+
+
+//    adds the user to the database (Register)
     public long addUser(String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -32,6 +38,7 @@ public class DBHelper extends SQLiteOpenHelper{
         return userId;
     }
 
+//    gets the user based on the email
     public User getUser(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         User user = null;
@@ -55,6 +62,7 @@ public class DBHelper extends SQLiteOpenHelper{
         return user;
     }
 
+//    checks if the user exists within the database (Sign in)
     public Boolean checkUser(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {"user_id"};
@@ -79,6 +87,42 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
+//    adds a list to the user's grocery_list
+    public long addList(int userId, String listName, String dateCreated, String lastUpdate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("user_id", userId);
+        values.put("list_name", listName);
+        values.put("date_created", dateCreated);
+        values.put("lastUpdate", lastUpdate);
+
+        long listId = db.insert("grocery_list", null, values);
+
+        db.close();
+
+        return listId;
+    }
+
+//    fetch the list of the user based on their email
+    public List<ListItem> getLists(String email) {
+        List<ListItem> lists = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM grocery_list WHERE user_id = (SELECT user_id FROM users WHERE email = ?)";
+        Cursor cursor = db.rawQuery(query, new String[]{email});
+
+        if(cursor.moveToFirst()) {
+            do {
+                int listId = cursor.getInt(cursor.getColumnIndex("list_id"));
+                String listName = cursor.getString(cursor.getColumnIndex("list_name"));
+                String lastUpdate = cursor.getString(cursor.getColumnIndex("last_update"));
+                lists.add(new ListItem(listId, listName, lastUpdate));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lists;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, user_name TEXT)");
@@ -90,9 +134,6 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS users");
-        db.execSQL("DROP TABLE IF EXISTS products");
-        db.execSQL("DROP TABLE IF EXISTS categories");
-        db.execSQL("DROP TABLE IF EXISTS orders");
         db.execSQL("DROP TABLE IF EXISTS grocery_list");
         db.execSQL("DROP TABLE IF EXISTS item");
 

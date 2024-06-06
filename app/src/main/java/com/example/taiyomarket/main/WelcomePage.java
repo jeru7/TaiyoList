@@ -1,4 +1,4 @@
-package com.example.taiyomarket.extras;
+package com.example.taiyomarket.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.taiyomarket.R;
+import com.example.taiyomarket.adapters.PagerAdapter;
 import com.example.taiyomarket.logins.Register;
 import com.example.taiyomarket.logins.SignIn;
 
