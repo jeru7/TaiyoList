@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bold"
-        android:textSize="30dp"
+        android:textSize="32sp"
         android:textAlignment="center"
         android:text="@string/heading_one" />
 
@@ -21,7 +21,7 @@
         android:fontFamily="@font/regular"
         android:text="@string/description_one"
         android:textAlignment="center"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="32dp"/>
 

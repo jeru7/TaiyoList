@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    tools:context=".fragments.AddItemPage">
+
+    <RelativeLayout
+        android:id="@+id/add_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:padding="16dp"
+        android:layout_marginBottom="36dp"
+        android:layout_above="@id/buttons_wrapper"
+        android:background="@drawable/orange_container">
+
+        <EditText
+            android:id="@+id/item_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_border_white_bg"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:fontFamily="@font/medium"
+            android:hint="Item name..."
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/quantity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/bold"
+            android:text="Quantity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/item_name_input"/>
+
+        <LinearLayout
+            android:id="@+id/linear_scale_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/quantity_text"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/linear_scale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/input_border_white_bg">
+
+                <ImageView
+                    android:id="@+id/increment_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/plus_black_icon"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/bold"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    />
+
+                <ImageView
+                    android:id="@+id/decrement_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/minus_black_icon"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recently_added_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/linear_scale_wrapper"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/bold"
+            android:textSize="16sp"
+            android:text="Recently Added"/>
+
+        <LinearLayout
+            android:id="@+id/recently_added_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/recently_added_text"
+            android:layout_centerHorizontal="true"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Egg x1"
+                android:textColor="@color/placeholder"
+                android:fontFamily="@font/bold"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:textSize="16sp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_cancel"
+            />
+
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ ADD ITEM"
+            android:textSize="16sp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp"
+            android:background="@drawable/button_add_item"
+            android:layout_weight="5"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor"
+    android:padding="16dp"
+    tools:context=".fragments.AddListPage">
+
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/taiyoooo"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/list_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon"
+        android:textSize="20sp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp"
+        android:hint="Name of the list"
+        android:fontFamily="@font/medium"
+        android:background="@drawable/input_border_white_bg"
+        />
+
+    <TextView
+        android:id="@+id/suggestion_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suggestions"
+        android:layout_below="@id/list_name_input"
+        android:fontFamily="@font/bold"
+        android:layout_marginTop="8dp"
+        />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontal_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/suggestion_text">
+
+        <LinearLayout
+            android:id="@+id/suggestions_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="8dp">
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <FrameLayout
+        android:id="@+id/switchable_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/create_button"
+        android:layout_below="@id/horizontal_container">
+
+
+        <RelativeLayout
+            android:id="@+id/add_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/horizontal_container"
+            android:layout_above="@+id/create_button"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/orange_container"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="List is currently empty"
+                android:fontFamily="@font/bold"
+                android:textColor="@color/placeholder"
+                android:layout_centerInParent="true"
+                />
+
+            <ImageButton
+                android:id="@+id/add_item"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/round_button"
+                app:srcCompat="@drawable/plus_icon"
+                android:padding="16dp"
+                android:scaleType="fitCenter"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/create_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bold"
+        android:text="CREATE"
+        android:textSize="24dp"
+        android:padding="12dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/background_button_sign_in"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

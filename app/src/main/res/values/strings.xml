@@ -1,5 +1,5 @@
 <resources>
-<!--  App name  -->
+    <!--  App name  -->
     <string name="app_name1">TaiyoMarket</string>
     <string name="app_name2">太陽</string>
 <!--  Headings - WelcomePage  -->

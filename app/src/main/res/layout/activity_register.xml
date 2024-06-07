@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/mainColor"
+
+    tools:context=".logins.Register">
+
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        app:srcCompat="@drawable/back_arrow"
+        />
+
+    <TextView
+        android:id="@+id/registration_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/bold"
+        android:text="Registration"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/dark"
+        android:textSize="42sp" android:layout_below="@id/back_btn"/>
+
+    <LinearLayout
+        android:id="@+id/linear_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/registration_title"
+        android:layout_marginTop="16dp"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="Email"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/email_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/error"
+                android:textSize="10sp"
+                android:text=""/>
+
+        </LinearLayout>
+        <EditText
+            android:id="@+id/email_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_border"
+            android:fontFamily="@font/regular"
+            android:hint="Enter email"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="Password"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/password_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/error"
+                android:textSize="8sp"
+                android:text=""/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:id="@+id/password_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_border"
+                android:fontFamily="@font/regular"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/password_toggler"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_alignEnd="@id/password_field"
+                android:layout_marginEnd="16dp"
+                app:srcCompat="@drawable/eye_closed" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/confirm_password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="Confirm Password"
+                android:textSize="24sp"
+                />
+
+            <TextView
+                android:id="@+id/confirm_password_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/error"
+                android:textSize="8sp"
+                android:text=""/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/confirm_password_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_border"
+                android:fontFamily="@font/regular"
+
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/confirm_password_toggler"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_alignEnd="@id/confirm_password_field"
+                android:layout_marginEnd="16dp"
+                app:srcCompat="@drawable/eye_closed" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/register_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_button_sign_in"
+            android:fontFamily="@font/bold"
+            android:text="Register"
+            android:textColor="@color/light"
+            android:textSize="24sp"
+            android:layout_marginTop="32dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/dark_half_transparent"
+        android:layout_below="@id/linear_1"/>
+
+    <LinearLayout
+        android:id="@+id/linear_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@id/view_line"
+        android:layout_marginTop="32dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/already_account_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/medium"
+                android:text="Already have an account?"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/sign_in_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="Sign in"
+                android:textColor="@color/extra_color1"
+                android:textSize="16sp"
+                android:layout_marginLeft="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
