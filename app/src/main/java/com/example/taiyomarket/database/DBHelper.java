@@ -115,8 +115,9 @@ public class DBHelper extends SQLiteOpenHelper{
             do {
                 int listId = cursor.getInt(cursor.getColumnIndex("list_id"));
                 String listName = cursor.getString(cursor.getColumnIndex("list_name"));
+                String dateCreated = cursor.getString(cursor.getColumnIndex("date_created"));
                 String lastUpdate = cursor.getString(cursor.getColumnIndex("last_update"));
-                lists.add(new ListItem(listId, listName, lastUpdate));
+                lists.add(new ListItem(listId, listName, dateCreated,lastUpdate));
             } while (cursor.moveToNext());
         }
         cursor.close();
