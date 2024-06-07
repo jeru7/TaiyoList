@@ -17,16 +17,19 @@ import android.widget.RelativeLayout;
 
 import com.example.taiyomarket.R;
 import com.example.taiyomarket.adapters.ListAdapter;
+import com.example.taiyomarket.classes.Item;
 import com.example.taiyomarket.classes.ListItem;
 import com.example.taiyomarket.classes.User;
 import com.example.taiyomarket.database.DBHelper;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import com.example.taiyomarket.fragments.AddListPage;;
+import com.example.taiyomarket.fragments.AddListPage;
+import com.example.taiyomarket.fragments.AddItemPage;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class LandingPage extends AppCompatActivity implements AddListPage.OnAddListListener {
+public class LandingPage extends AppCompatActivity implements AddListPage.OnAddListListener, AddItemPage.OnItemAddedListener {
 
     RecyclerView recyclerView;
     ListAdapter listAdapter;
@@ -36,7 +39,11 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
     ExtendedFloatingActionButton addNewListBtn;
     DBHelper db;
     User currentUser;
-    AddListPage addListPage;
+    String userEmail;
+    AddListPage addListFragment;
+    private List<Item> itemList = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +60,11 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
         listLayout = (LinearLayout) findViewById(R.id.list_layout);
         profileLayout = (LinearLayout) findViewById(R.id.profile_layout);
 
+        itemList = new ArrayList<>();
+
         db = new DBHelper(this);
         Intent i = getIntent();
-        String userEmail = getIntent().getStringExtra("email");
+        userEmail = getIntent().getStringExtra("email");
 
         if (userEmail != null) {
             currentUser = db.getUser(userEmail);
@@ -85,7 +94,14 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
     }
 
     public void startAddList() {
-        AddListPage addListFragment = new AddListPage();
+        addListFragment = new AddListPage();
+
+        addListFragment.setAddListFragment(addListFragment);
+
+        Bundle args = new Bundle();
+        args.putString("email", userEmail);
+        addListFragment.setArguments(args);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.switchable_view, addListFragment);
         transaction.commit();
@@ -116,6 +132,7 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
                     switchableContainer.removeAllViews();
                     topBar.setVisibility(View.VISIBLE);
                     mainPage.setVisibility(View.VISIBLE);
+                    displayList(userEmail);
                 }
             }
         });
@@ -123,6 +140,11 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
 
     @Override
     public void onAddList() {
+        displayList(userEmail);
+    }
 
+    @Override
+    public void onItemAdded(Item item) {
+        itemList.add(item);
     }
 }

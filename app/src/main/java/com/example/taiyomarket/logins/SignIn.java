@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
@@ -68,14 +69,19 @@ public class SignIn extends AppCompatActivity {
         loginGuide = (TextView) findViewById(R.id.login_guide);
 
         if(db.checkUser(email, password)) {
-            Log.d("SignIn", "User authenticated. Proceeding to LandingPage.");
             Intent i = new Intent(SignIn.this, LandingPage.class);
             loginGuide.setText("");
             i.putExtra("email", email);
             startActivity(i);
         } else {
-            Log.d("SignIn", "Incorrect email or password");
+
             loginGuide.setText("Incorrect email or password");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loginGuide.setText("");
+                }
+            }, 3000);
         }
     }
 

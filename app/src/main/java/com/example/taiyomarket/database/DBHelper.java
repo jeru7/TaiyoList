@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import com.example.taiyomarket.classes.ListItem;
 import com.example.taiyomarket.classes.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper{
@@ -95,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper{
         values.put("user_id", userId);
         values.put("list_name", listName);
         values.put("date_created", dateCreated);
-        values.put("lastUpdate", lastUpdate);
+        values.put("last_update", lastUpdate);
 
         long listId = db.insert("grocery_list", null, values);
 
@@ -104,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper{
         return listId;
     }
 
-//    fetch the list of the user based on their email
+//    fetch the lists of the user based on their email
     public List<ListItem> getLists(String email) {
         List<ListItem> lists = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -124,6 +126,58 @@ public class DBHelper extends SQLiteOpenHelper{
         return lists;
     }
 
+//    adds the item to the specified list (grocery_list)
+    public long addItemToList(long listId, String itemName, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("list_id", listId);
+        values.put("item_name", itemName);
+        values.put("quantity", quantity);
+        values.put("date_created", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        values.put("status", false);
+
+        long itemId = db.insert("item", null, values);
+
+        db.close();
+
+        return itemId;
+    }
+
+//
+    public ListItem getListById(long listId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ListItem listItem = null;
+
+        Cursor cursor = db.query("grocery_list", null, "list_id = ?", new String[]{String.valueOf(listId)}, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndex("list_id"));
+            String listName = cursor.getString(cursor.getColumnIndex("list_name"));
+            String dateCreated = cursor.getString(cursor.getColumnIndex("date_created"));
+            String lastUpdate = cursor.getString(cursor.getColumnIndex("last_update"));
+            listItem = new ListItem(id, listName, dateCreated, lastUpdate);
+            cursor.close();
+        }
+
+        db.close();
+        return listItem;
+    }
+
+    public boolean updateUserWithList(int userId, int listId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("connected_list_id", listId);
+
+        int rowsAffected = db.update("users", values, "user_id = ?", new String[]{String.valueOf(userId)});
+
+        db.close();
+
+        return rowsAffected > 0;
+    }
+
+//    methods for database
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, user_name TEXT)");

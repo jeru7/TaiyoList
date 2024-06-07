@@ -61,13 +61,14 @@
                 android:background="@drawable/input_border_white_bg">
 
                 <ImageView
-                    android:id="@+id/increment_button"
+                    android:id="@+id/decrement_button"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/plus_black_icon"
+                    android:src="@drawable/minus_black_icon"
                     android:layout_weight="1"/>
 
                 <TextView
+                    android:id="@+id/quantity_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
@@ -78,11 +79,12 @@
                     />
 
                 <ImageView
-                    android:id="@+id/decrement_button"
+                    android:id="@+id/increment_button"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/minus_black_icon"
+                    android:src="@drawable/plus_black_icon"
                     android:layout_weight="1"/>
+
 
             </LinearLayout>
         </LinearLayout>
@@ -98,23 +100,24 @@
             android:textSize="16sp"
             android:text="Recently Added"/>
 
-        <LinearLayout
-            android:id="@+id/recently_added_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/recently_added_text"
-            android:layout_centerHorizontal="true"
-            >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/recently_added_text">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/recently_added_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Egg x1"
-                android:textColor="@color/placeholder"
-                android:fontFamily="@font/bold"
-                />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </RelativeLayout>
 
@@ -132,7 +135,7 @@
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CANCEL"
+            android:text="GO BACK"
             android:textSize="16sp"
             android:paddingVertical="16dp"
             android:paddingHorizontal="32dp"

@@ -75,12 +75,39 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ITEMS"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/bold"
+                android:textSize="24sp"
+                />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/item_text">
+
+                <LinearLayout
+                    android:id="@+id/list_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/empty_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="List is currently empty"
                 android:fontFamily="@font/bold"
-                android:textColor="@color/placeholder"
                 android:layout_centerInParent="true"
+                android:textColor="@color/placeholder"
                 />
 
             <ImageButton
