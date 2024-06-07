@@ -13,7 +13,7 @@
         android:layout_width="235dp"
         android:layout_height="211dp"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/taiyo_icon" />
+        app:srcCompat="@drawable/taiyologonobg" />
 
     <TextView
         android:id="@+id/app_title1"
