@@ -3,13 +3,14 @@
     <string name="app_name1">TaiyoMarket</string>
     <string name="app_name2">太陽</string>
 <!--  Headings - WelcomePage  -->
-    <string name="heading_one">Our Promise
+    <string name="heading_one">Why Taiyō List?
 </string>
-    <string name="heading_two">How to use Taiyō Market?</string>
+    <string name="heading_two">How to use Taiyō List?</string>
     <string name="heading_three">Powered by Basic CRUD</string>
 <!--  Description - WelcomePage  -->
-    <string name="description_one">Groceries Galore, Delivered to Your Door!</string>
-    <string name="description_two">Explore products, add to cart, checkout securely, and get groceries delivered to your doorstep.
+    <string name="description_one">Forgotten essential items? Missed a crucial ingredient? Never miss a thing again.
+        Manage your grocery list effortlessly—at work, home, and everything in between. </string>
+    <string name="description_two">Create and manage your list with ease, add items effortlessly, and keep track of what you already have and what you need.
 </string>
     <string name="description_three">Streamlined Efficiency at Your Fingertips.</string>
 </resources>
