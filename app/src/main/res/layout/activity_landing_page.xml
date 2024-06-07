@@ -88,7 +88,8 @@
             <ImageView
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                app:srcCompat="@drawable/taiyoooo" />
+                android:alpha="0.7"
+                app:srcCompat="@drawable/landingpagepicture" />
 
             <TextView
                 android:layout_width="wrap_content"
