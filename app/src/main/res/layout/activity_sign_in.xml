@@ -93,17 +93,6 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/forgot_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/bold"
-            android:text="Forgot Password?"
-            android:textColor="@color/dark_half_transparent"
-            android:textSize="16sp"
-            android:layout_gravity="end"
-            android:layout_marginTop="8dp"/>
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sign_in_btn"
             android:layout_width="match_parent"
@@ -113,7 +102,7 @@
             android:text="Sign In"
             android:textColor="@color/light"
             android:textSize="24sp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"/>
 

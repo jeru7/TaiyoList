@@ -22,7 +22,7 @@ import com.example.taiyomarket.classes.User;
 import com.example.taiyomarket.database.DBHelper;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import com.example.taiyomarket.main.AddListPage;;
+import com.example.taiyomarket.fragments.AddListPage;;
 
 import java.util.List;
 

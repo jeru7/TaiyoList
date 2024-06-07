@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/mainColor"
     android:padding="16dp"
-    tools:context=".main.AddListPage">
+    tools:context=".fragments.AddListPage">
 
 
     <ImageView
@@ -56,36 +56,45 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <RelativeLayout
-        android:id="@+id/add_list_container"
+    <FrameLayout
+        android:id="@+id/switchable_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/horizontal_container"
-        android:layout_above="@+id/create_button"
-        android:layout_marginBottom="36dp"
-        android:background="@drawable/orange_container"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/create_button"
+        android:layout_below="@id/horizontal_container">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="List is currently empty"
-            android:fontFamily="@font/bold"
-            android:textColor="@color/placeholder"
-            android:layout_centerInParent="true"
-            />
 
-        <ImageButton
-            android:id="@+id/add_list"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/round_button"
-            app:srcCompat="@drawable/plus_icon"
-            android:padding="16dp"
-            android:scaleType="fitCenter"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/add_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/horizontal_container"
+            android:layout_above="@+id/create_button"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/orange_container"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="List is currently empty"
+                android:fontFamily="@font/bold"
+                android:textColor="@color/placeholder"
+                android:layout_centerInParent="true"
+                />
+
+            <ImageButton
+                android:id="@+id/add_item"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/round_button"
+                app:srcCompat="@drawable/plus_icon"
+                android:padding="16dp"
+                android:scaleType="fitCenter"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/create_button"

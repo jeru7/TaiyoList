@@ -12,4 +12,6 @@
     <string name="description_two">Explore products, add to cart, checkout securely, and get groceries delivered to your doorstep.
 </string>
     <string name="description_three">Streamlined Efficiency at Your Fingertips.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -23,7 +23,7 @@ public class SignIn extends AppCompatActivity {
 
     EditText email, password;
 
-    TextView forgotPass, loginGuide;
+    TextView loginGuide;
 
     Button register, signIn;
 
@@ -45,7 +45,6 @@ public class SignIn extends AppCompatActivity {
         passToggler = (ImageView) findViewById(R.id.password_toggler);
         register = (Button) findViewById(R.id.register_btn);
         signIn = (Button) findViewById(R.id.sign_in_btn);
-        forgotPass = (TextView) findViewById(R.id.forgot_pass);
 
         buttonEnabler();
         attachTextListener();
