@@ -13,14 +13,20 @@ import java.util.List;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
 
     private List<ListItem> items;
+    private OnItemLongClickListener longClickListener;
 
-    public ListAdapter(List<ListItem> items) {
+    public interface OnItemLongClickListener {
+        void onItemLongClicked(int position);
+    }
+
+    public ListAdapter(List<ListItem> items, OnItemLongClickListener longClickListener) {
         this.items = items;
+        this.longClickListener = longClickListener;
     }
 
     @NonNull
     @Override
-    public ListAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
         return new ListViewHolder(view);
     }
@@ -30,6 +36,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         ListItem item = items.get(position);
         holder.listName.setText(item.getListName());
         holder.lastUpdate.setText("Last updated since " + item.getLastUpdate());
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int currentPosition = holder.getAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    longClickListener.onItemLongClicked(currentPosition);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -46,5 +63,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             listName = itemView.findViewById(R.id.list_name);
             lastUpdate = itemView.findViewById(R.id.last_update);
         }
+    }
+
+    public List<ListItem> getItems() {
+        return items;
     }
 }

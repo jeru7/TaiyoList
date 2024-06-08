@@ -144,6 +144,13 @@ public class DBHelper extends SQLiteOpenHelper{
         return itemId;
     }
 
+    public boolean deleteList(int listId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete("grocery_list", "list_id = ?", new String[]{String.valueOf(listId)});
+        db.close();
+        return rowsDeleted > 0;
+    }
+
 //
     public ListItem getListById(long listId) {
         SQLiteDatabase db = this.getReadableDatabase();

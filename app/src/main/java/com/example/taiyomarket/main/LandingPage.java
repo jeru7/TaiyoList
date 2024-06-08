@@ -2,11 +2,13 @@ package com.example.taiyomarket.main;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ import com.example.taiyomarket.fragments.AddItemPage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LandingPage extends AppCompatActivity implements AddListPage.OnAddListListener, AddItemPage.OnItemAddedListener {
+public class LandingPage extends AppCompatActivity implements AddListPage.OnAddListListener, AddItemPage.OnItemAddedListener, ListAdapter.OnItemLongClickListener {
 
     RecyclerView recyclerView;
     ListAdapter listAdapter;
@@ -114,7 +116,7 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
             recyclerView.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
 
-            listAdapter = new ListAdapter(items);
+            listAdapter = new ListAdapter(items, this);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(listAdapter);
         } else {
@@ -138,6 +140,32 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
         });
     }
 
+    private void showDeleteDialog(int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete List")
+                .setMessage("Are you sure you want to delete this list?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteList(position);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void deleteList(int position) {
+        ListItem listItem = listAdapter.getItems().get(position);
+        db.deleteList(listItem.getId());
+        listAdapter.getItems().remove(position);
+        listAdapter.notifyItemRemoved(position);
+
+        if (listAdapter.getItemCount() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onAddList() {
         displayList(userEmail);
@@ -147,4 +175,10 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
     public void onItemAdded(Item item) {
         itemList.add(item);
     }
+
+    @Override
+    public void onItemLongClicked(int position) {
+        showDeleteDialog(position);
+    }
+
 }

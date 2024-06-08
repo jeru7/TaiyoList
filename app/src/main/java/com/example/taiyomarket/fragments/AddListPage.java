@@ -1,10 +1,6 @@
 package com.example.taiyomarket.fragments;
 
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.graphics.Typeface;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,13 +20,11 @@ import java.util.Date;
 
 import com.example.taiyomarket.R;
 import com.example.taiyomarket.classes.Item;
-import com.example.taiyomarket.classes.ListItem;
 import com.example.taiyomarket.database.DBHelper;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.example.taiyomarket.database.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;

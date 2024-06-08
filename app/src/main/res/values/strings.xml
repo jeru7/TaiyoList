@@ -1,11 +1,11 @@
 <resources>
     <!--  App name  -->
-    <string name="app_name1">TaiyoMarket</string>
+    <string name="app_name1">TaiyōList</string>
     <string name="app_name2">太陽</string>
 <!--  Headings - WelcomePage  -->
-    <string name="heading_one">Why Taiyō List?
+    <string name="heading_one">Why TaiyōList?
 </string>
-    <string name="heading_two">How to use Taiyō List?</string>
+    <string name="heading_two">How to use TaiyōList?</string>
     <string name="heading_three">Powered by Basic CRUD</string>
 <!--  Description - WelcomePage  -->
     <string name="description_one">Forgotten essential items? Missed a crucial ingredient? Never miss a thing again.
