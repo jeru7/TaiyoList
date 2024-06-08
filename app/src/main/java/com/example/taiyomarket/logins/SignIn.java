@@ -1,8 +1,10 @@
 package com.example.taiyomarket.logins;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -30,7 +32,7 @@ public class SignIn extends AppCompatActivity {
 
     String emailFinal, passwordFinal;
     Boolean isSignInValid = false;
-
+    Typeface customTypeface;
     DBHelper db;
 
     @Override
@@ -46,6 +48,7 @@ public class SignIn extends AppCompatActivity {
         passToggler = (ImageView) findViewById(R.id.password_toggler);
         register = (Button) findViewById(R.id.register_btn);
         signIn = (Button) findViewById(R.id.sign_in_btn);
+        customTypeface = ResourcesCompat.getFont(SignIn.this, R.font.regular);
 
         buttonEnabler();
         attachTextListener();
@@ -153,6 +156,7 @@ public class SignIn extends AppCompatActivity {
                     password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 }
 
+                password.setTypeface(customTypeface);
                 password.setSelection(currentPos);
             }
         });

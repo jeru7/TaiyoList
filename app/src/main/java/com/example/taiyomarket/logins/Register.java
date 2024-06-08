@@ -1,8 +1,10 @@
 package com.example.taiyomarket.logins;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -33,7 +35,7 @@ public class Register extends AppCompatActivity {
 
 //    global variables
     String confirmedEmail, confirmedPassword;
-
+    Typeface customTypeface;
     Boolean isEmail = false;
     Boolean isPassword = false;
     Boolean isRegistrationValid = false;
@@ -57,6 +59,8 @@ public class Register extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email_field);
         password = (EditText) findViewById(R.id.password_field);
         passwordConfirmation = (EditText) findViewById(R.id.confirm_password_field);
+
+        customTypeface = ResourcesCompat.getFont(Register.this, R.font.regular);
 
         attachTextChangeListeners();
         buttonEnabler(register);
@@ -269,6 +273,8 @@ public class Register extends AppCompatActivity {
                     passwordToggler.setImageResource(R.drawable.eye_icon);
                     password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 }
+
+                password.setTypeface(customTypeface);
                 password.setSelection(currentPos);
             }
         });
@@ -285,6 +291,8 @@ public class Register extends AppCompatActivity {
                     confirmPassToggler.setImageResource(R.drawable.eye_icon);
                     passwordConfirmation.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 }
+
+                passwordConfirmation.setTypeface(customTypeface);
                 passwordConfirmation.setSelection(currentPos);
             }
         });

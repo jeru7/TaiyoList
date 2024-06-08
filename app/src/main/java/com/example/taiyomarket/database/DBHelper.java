@@ -144,9 +144,16 @@ public class DBHelper extends SQLiteOpenHelper{
         return itemId;
     }
 
-    public boolean deleteList(int listId) {
+    public boolean deleteList(long listId) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsDeleted = db.delete("grocery_list", "list_id = ?", new String[]{String.valueOf(listId)});
+        db.close();
+        return rowsDeleted > 0;
+    }
+
+    public boolean deleteItemsOfList(long listId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete("item", "list_id = ?", new String[]{String.valueOf(listId)});
         db.close();
         return rowsDeleted > 0;
     }
@@ -169,19 +176,6 @@ public class DBHelper extends SQLiteOpenHelper{
 
         db.close();
         return listItem;
-    }
-
-    public boolean updateUserWithList(int userId, int listId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("connected_list_id", listId);
-
-        int rowsAffected = db.update("users", values, "user_id = ?", new String[]{String.valueOf(userId)});
-
-        db.close();
-
-        return rowsAffected > 0;
     }
 
 //    methods for database

@@ -46,7 +46,7 @@
             android:id="@+id/sort_list"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            app:srcCompat="@drawable/sort_asc"
+            app:srcCompat="@drawable/sort_default"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
 
@@ -120,6 +120,7 @@
             android:paddingHorizontal="16dp"
             android:layout_marginBottom="16dp"
             android:text="+ New List"
+            android:textColor="@color/dark"
             android:textSize="20sp"
             android:fontFamily="@font/bold"
             android:backgroundTint="@color/extra_color4"/>
