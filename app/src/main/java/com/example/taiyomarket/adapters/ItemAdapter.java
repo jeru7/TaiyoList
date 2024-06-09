@@ -1,16 +1,20 @@
 package com.example.taiyomarket.adapters;
 
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taiyomarket.R;
 import com.example.taiyomarket.classes.Item;
+import com.example.taiyomarket.database.DBHelper;
 
 import java.util.List;
 
@@ -24,10 +28,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         this.itemList = itemList;
     }
 
+    DBHelper db;
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_adapter, parent, false);
+        db = new DBHelper(view.getContext());
         return new ItemViewHolder(view);
     }
 
@@ -49,12 +56,37 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                int adapterPosition = holder.getAdapterPosition();
+                final int adapterPosition = holder.getAdapterPosition();
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    if (itemLongClickListener != null) {
-                        itemLongClickListener.onItemLongClick(adapterPosition, item);
-                        return true;
-                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
+                    builder.setTitle("Please choose an option")
+                            .setItems(new CharSequence[]{"Edit", "Delete"}, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which) {
+                                        case 0:
+                                            if (itemLongClickListener != null) {
+                                                itemLongClickListener.onItemLongClick(adapterPosition, item, true);
+                                            }
+                                            break;
+                                        case 1:
+                                            long deleteItemId = item.getId();
+                                            boolean isDeleted = db.deleteItem(deleteItemId);
+                                            String itemNameDelete = item.getItemName();
+
+                                            if (isDeleted) {
+                                                itemList.remove(adapterPosition);
+                                                notifyItemRemoved(adapterPosition);
+                                                Toast.makeText(holder.itemView.getContext(), itemNameDelete + " deleted", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(holder.itemView.getContext(), "Failed to delete " + itemNameDelete, Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                    }
+                                }
+                            });
+                    builder.create().show();
+                    return true;
                 }
                 return false;
             }
@@ -84,7 +116,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     public interface OnItemLongClickListener {
-        void onItemLongClick(int position, Item item);
+        void onItemLongClick(int position, Item item, boolean isEdit);
     }
 
 }
