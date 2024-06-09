@@ -145,6 +145,20 @@ public class DBHelper extends SQLiteOpenHelper{
         return itemId;
     }
 
+    public String getListName(long listId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT list_name FROM grocery_list WHERE list_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(listId)});
+        String listName = "";
+
+        if (cursor.moveToFirst()) {
+            listName = cursor.getString(cursor.getColumnIndex("list_name"));
+        }
+        cursor.close();
+        db.close();
+        return listName;
+    }
+
     public List<Item> getItemsOnList(long listId) {
         List<Item> items = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -178,7 +192,6 @@ public class DBHelper extends SQLiteOpenHelper{
         db.close();
         return rowsDeleted > 0;
     }
-
 
     public boolean deleteList(long listId) {
         SQLiteDatabase db = this.getWritableDatabase();

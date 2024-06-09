@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -29,6 +30,7 @@ public class ListPageView extends AppCompatActivity  {
 
     List<Item> itemList;
     LinearLayout emptyLayoutDisplay, centerContainer;
+    TextView listNameDisplay;
     RelativeLayout infoContainer;
     ImageView backBtn;
     private RecyclerView recyclerView;
@@ -40,9 +42,10 @@ public class ListPageView extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_page_view);
 
-        recyclerView = (RecyclerView) findViewById(R.id.list_items_container);
-        emptyLayoutDisplay = (LinearLayout) findViewById(R.id.empty_layout_display);
-        centerContainer = (LinearLayout) findViewById(R.id.center_container);
+        listNameDisplay = findViewById(R.id.list_name);
+        recyclerView =  findViewById(R.id.list_items_container);
+        emptyLayoutDisplay = findViewById(R.id.empty_layout_display);
+        centerContainer =  findViewById(R.id.center_container);
         infoContainer = findViewById(R.id.info_container);
         backBtn = findViewById(R.id.back_btn);
         db = new DBHelper(this);
@@ -65,6 +68,8 @@ public class ListPageView extends AppCompatActivity  {
 
     private void displayItemList(long listId) {
         itemList = db.getItemsOnList(listId);
+        String listName = db.getListName(listId);
+        listNameDisplay.setText(listName);
 
         if (itemList.isEmpty()) {
             emptyLayoutDisplay.setVisibility(View.VISIBLE);
