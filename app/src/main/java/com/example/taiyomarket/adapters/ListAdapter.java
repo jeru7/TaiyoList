@@ -3,6 +3,9 @@ package com.example.taiyomarket.adapters;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.taiyomarket.R;
 import com.example.taiyomarket.classes.ListItem;
+import com.example.taiyomarket.main.ListPageView;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +40,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         holder.listName.setText(item.getListName());
         holder.lastUpdate.setText("Last updated since " + item.getLastUpdate());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               int currentPosition = holder.getAdapterPosition();
+               if (currentPosition != RecyclerView.NO_POSITION) {
+                   ListItem clickedItem = items.get(currentPosition);
+                   long listId = clickedItem.getId();
+                   Intent intent = new Intent(holder.itemView.getContext(), ListPageView.class);
+                   intent.putExtra("listId", listId);
+                   holder.itemView.getContext().startActivity(intent);
+
+               }
+           }
+       });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

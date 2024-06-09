@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="4dp"
+    android:paddingHorizontal="16dp"
+    tools:context=".adapters.ItemAdapter">
+
+    <ImageView
+        android:id="@+id/checkbox_btn"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:srcCompat="@drawable/uncheck"/>
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:fontFamily="@font/medium"
+        android:layout_marginLeft="16dp"
+        android:text="Banana"
+        android:layout_toRightOf="@id/checkbox_btn"
+        />
+
+    <TextView
+        android:id="@+id/item_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:fontFamily="@font/medium"
+        android:text="x3"
+        android:layout_alignParentEnd="true"
+        />
+
+</RelativeLayout>
