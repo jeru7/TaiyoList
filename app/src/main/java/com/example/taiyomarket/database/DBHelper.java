@@ -186,6 +186,30 @@ public class DBHelper extends SQLiteOpenHelper{
         return items;
     }
 
+    public Item getItemById(long itemId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Item item = null;
+
+        Cursor cursor = db.query("item", null, "item_id = ?", new String[]{String.valueOf(itemId)}, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String itemName = cursor.getString(cursor.getColumnIndex("item_name"));
+            int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
+            String dateCreated = cursor.getString(cursor.getColumnIndex("date_created"));
+            boolean checked = cursor.getInt(cursor.getColumnIndex("checked")) == 1;
+
+            item = new Item(itemName, quantity);
+            item.setId(itemId);
+            item.setDateCreated(dateCreated);
+            item.setChecked(checked);
+
+            cursor.close();
+        }
+
+        db.close();
+        return item;
+    }
+
     public boolean deleteItem(long itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsDeleted = db.delete("item", "item_id = ?", new String[]{String.valueOf(itemId)});

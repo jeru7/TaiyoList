@@ -22,20 +22,17 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     private List<Item> itemList;
-
-    private OnItemLongClickListener itemLongClickListener;
+    private OnItemEditClickListener editClickListener;
+    private OnItemDeleteClickListener deleteClickListener;
 
     public ItemAdapter(List<Item> itemList) {
         this.itemList = itemList;
     }
 
-    DBHelper db;
-
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_adapter, parent, false);
-        db = new DBHelper(view.getContext());
         return new ItemViewHolder(view);
     }
 
@@ -43,7 +40,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Item item = itemList.get(position);
         holder.itemName.setText(item.getItemName());
-        holder.itemQuantity.setText( "x" + item.getQuantity());
+        holder.itemQuantity.setText("x" + item.getQuantity());
         holder.checkbox.setImageResource(item.isChecked() ? R.drawable.checked : R.drawable.uncheck);
 
         holder.checkbox.setOnClickListener(new View.OnClickListener() {
@@ -66,12 +63,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                                 public void onClick(DialogInterface dialog, int which) {
                                     switch (which) {
                                         case 0:
-                                            if (itemLongClickListener != null) {
-                                                itemLongClickListener.onItemLongClick(adapterPosition, item, true);
+                                            if (editClickListener != null) {
+                                                editClickListener.onItemEditClick(adapterPosition, item, true);
                                             }
                                             break;
                                         case 1:
-                                            deleteItem(position, holder.itemView.getContext());
+                                            if (deleteClickListener != null) {
+                                                deleteClickListener.onItemDeleteClick(adapterPosition, item);
+                                            }
+                                            break;
                                     }
                                 }
                             });
@@ -81,21 +81,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 return false;
             }
         });
-    }
-
-    public void deleteItem(int position, Context context) {
-        Item itemToDelete = itemList.get(position);
-        long deleteItemId = itemToDelete.getId();
-        boolean isDeleted = db.deleteItem(deleteItemId);
-        String itemNameDelete = itemToDelete.getItemName();
-
-        if (isDeleted) {
-            itemList.remove(position);
-            notifyItemRemoved(position);
-            Toast.makeText(context, itemNameDelete + " deleted", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Failed to delete " + itemNameDelete, Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -110,18 +95,25 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         public ItemViewHolder(@NonNull View view) {
             super(view);
-            itemName = (TextView) view.findViewById(R.id.item_name);
-            itemQuantity = (TextView) view.findViewById(R.id.item_quantity);
-            checkbox = (ImageView) view.findViewById(R.id.checkbox_btn);
+            itemName = view.findViewById(R.id.item_name);
+            itemQuantity = view.findViewById(R.id.item_quantity);
+            checkbox = view.findViewById(R.id.checkbox_btn);
         }
     }
 
-    public void setItemLongClickListener(OnItemLongClickListener listener) {
-        this.itemLongClickListener = listener;
+    public void setOnItemEditClickListener(OnItemEditClickListener listener) {
+        this.editClickListener = listener;
     }
 
-    public interface OnItemLongClickListener {
-        void onItemLongClick(int position, Item item, boolean isEdit);
+    public void setOnItemDeleteClickListener(OnItemDeleteClickListener listener) {
+        this.deleteClickListener = listener;
     }
 
+    public interface OnItemEditClickListener {
+        void onItemEditClick(int position, Item item, boolean isEdit);
+    }
+
+    public interface OnItemDeleteClickListener {
+        void onItemDeleteClick(int position, Item item);
+    }
 }

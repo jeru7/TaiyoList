@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,7 +25,7 @@ import com.example.taiyomarket.database.DBHelper;
 
 import java.util.List;
 
-public class ListPageView extends AppCompatActivity  {
+public class ListPageView extends AppCompatActivity implements ItemAdapter.OnItemEditClickListener, ItemAdapter.OnItemDeleteClickListener {
 
     List<Item> itemList;
     LinearLayout emptyLayoutDisplay, centerContainer;
@@ -34,6 +33,7 @@ public class ListPageView extends AppCompatActivity  {
     RelativeLayout infoContainer;
     ImageView backBtn;
     private RecyclerView recyclerView;
+    ItemAdapter itemAdapter;
     private DBHelper db;
     private long listId;
 
@@ -43,9 +43,9 @@ public class ListPageView extends AppCompatActivity  {
         setContentView(R.layout.activity_list_page_view);
 
         listNameDisplay = findViewById(R.id.list_name);
-        recyclerView =  findViewById(R.id.list_items_container);
+        recyclerView = findViewById(R.id.list_items_container);
         emptyLayoutDisplay = findViewById(R.id.empty_layout_display);
-        centerContainer =  findViewById(R.id.center_container);
+        centerContainer = findViewById(R.id.center_container);
         infoContainer = findViewById(R.id.info_container);
         backBtn = findViewById(R.id.back_btn);
         db = new DBHelper(this);
@@ -100,11 +100,58 @@ public class ListPageView extends AppCompatActivity  {
             centerContainer.setLayoutParams(params);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            ItemAdapter itemAdapter = new ItemAdapter(itemList);
+            itemAdapter = new ItemAdapter(itemList);
             recyclerView.setAdapter(itemAdapter);
+
+            // Set item click listeners
+            itemAdapter.setOnItemEditClickListener(this);
+            itemAdapter.setOnItemDeleteClickListener(this);
         }
     }
 
+    private void showDeleteConfirmationDialog(final int position, final Item item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Deletion")
+                .setMessage("Are you sure you want to delete this item?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteItem(position, item);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void checkEmptyState() {
+        if (itemList.isEmpty()) {
+            emptyLayoutDisplay.setVisibility(View.VISIBLE);
+            infoContainer.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+            ScrollView.LayoutParams params = (ScrollView.LayoutParams) centerContainer.getLayoutParams();
+            params.gravity = Gravity.CENTER;
+            centerContainer.setLayoutParams(params);
+        }
+    }
+
+    private void deleteItem(int position, Item item) {
+        db.deleteItem(item.getId());
+        itemList.remove(position);
+        itemAdapter.notifyItemRemoved(position);
+        checkEmptyState();
+    }
+
+    @Override
+    public void onItemEditClick(int position, Item item, boolean isEdit) {
+        Intent intent = new Intent(ListPageView.this, EditPage.class);
+        intent.putExtra("itemId", item.getId());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemDeleteClick(int position, Item item) {
+        showDeleteConfirmationDialog(position, item);
+    }
 
     @Override
     protected void onResume() {

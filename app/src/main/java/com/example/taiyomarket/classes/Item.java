@@ -8,8 +8,8 @@ import androidx.annotation.NonNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Item implements Parcelable {
-    private int id;
+public class Item {
+    private long id;
     private String itemName;
     private int quantity;
     private String dateCreated;
@@ -21,7 +21,7 @@ public class Item implements Parcelable {
         this.dateCreated = getCurrentDate();
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -40,7 +40,7 @@ public class Item implements Parcelable {
         this.itemName = itemName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -63,19 +63,5 @@ public class Item implements Parcelable {
     private String getCurrentDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(new Date());
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(itemName);
-        dest.writeInt(quantity);
-        dest.writeString(dateCreated);
-        dest.writeByte((byte) (checked ? 1 : 0));
     }
 }
