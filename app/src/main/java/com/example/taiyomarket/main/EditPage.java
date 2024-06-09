@@ -86,6 +86,14 @@ public class EditPage extends AppCompatActivity {
                 } else {
                     item.setQuantity(Integer.parseInt(quantityValue.getText().toString()));
                     item.setItemName(editName.getText().toString());
+
+                    boolean success = db.updateItem(item.getId(), item.getItemName(), item.getQuantity());
+
+                    if (success) {
+                        Toast.makeText(EditPage.this, "Item updated successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditPage.this, "Failed to update item", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

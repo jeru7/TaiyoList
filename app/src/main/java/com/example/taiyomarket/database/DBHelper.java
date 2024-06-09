@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper{
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-
+//    INSERT
 
     //    adds the user to the database (Register)
     public long addUser(String email, String password) {
@@ -41,6 +41,42 @@ public class DBHelper extends SQLiteOpenHelper{
 
         return userId;
     }
+
+    //    adds the item to the specified list (grocery_list)
+    public long addItemToList(long listId, String itemName, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("list_id", listId);
+        values.put("item_name", itemName);
+        values.put("quantity", quantity);
+        values.put("date_created", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        values.put("checked", false);
+
+        long itemId = db.insert("item", null, values);
+        db.close();
+
+        return itemId;
+    }
+
+    //    adds a list to the user's grocery_list
+    public long addList(int userId, String listName, String dateCreated, String lastUpdate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("user_id", userId);
+        values.put("list_name", listName);
+        values.put("date_created", dateCreated);
+        values.put("last_update", lastUpdate);
+
+        long listId = db.insert("grocery_list", null, values);
+
+        db.close();
+
+        return listId;
+    }
+
+//    SELECT
 
     //    gets the user based on the email
     public User getUser(String email) {
@@ -91,23 +127,6 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
-    //    adds a list to the user's grocery_list
-    public long addList(int userId, String listName, String dateCreated, String lastUpdate) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("user_id", userId);
-        values.put("list_name", listName);
-        values.put("date_created", dateCreated);
-        values.put("last_update", lastUpdate);
-
-        long listId = db.insert("grocery_list", null, values);
-
-        db.close();
-
-        return listId;
-    }
-
     //    fetch the lists of the user based on their email
     public List<ListItem> getLists(String email) {
         List<ListItem> lists = new ArrayList<>();
@@ -128,22 +147,6 @@ public class DBHelper extends SQLiteOpenHelper{
         return lists;
     }
 
-    //    adds the item to the specified list (grocery_list)
-    public long addItemToList(long listId, String itemName, int quantity) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("list_id", listId);
-        values.put("item_name", itemName);
-        values.put("quantity", quantity);
-        values.put("date_created", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        values.put("checked", false);
-
-        long itemId = db.insert("item", null, values);
-        db.close();
-
-        return itemId;
-    }
 
     public String getListName(long listId) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -209,6 +212,7 @@ public class DBHelper extends SQLiteOpenHelper{
         db.close();
         return item;
     }
+//    DELETE
 
     public boolean deleteItem(long itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -231,6 +235,34 @@ public class DBHelper extends SQLiteOpenHelper{
         return rowsDeleted > 0;
     }
 
+//    UPDATE
+    public boolean updateItem(long itemId, String itemName, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            String sql = "UPDATE item SET item_name = ?, quantity = ? WHERE item_id = ?";
+            db.execSQL(sql, new Object[]{itemName, quantity, itemId});
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.close();
+        }
+    }
+
+    public boolean updateIsChecked(long itemId, boolean checked) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            String sql = "UPDATE item SET isChecked = ? WHERE item_id = ?";
+            db.execSQL(sql, new Object[]{checked,itemId});
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.close();
+        }
+    }
 
     //    methods for database
     @Override

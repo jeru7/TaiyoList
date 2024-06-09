@@ -30,7 +30,6 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
     List<Item> itemList;
     LinearLayout emptyLayoutDisplay, centerContainer;
     TextView listNameDisplay;
-    RelativeLayout infoContainer;
     ImageView backBtn;
     private RecyclerView recyclerView;
     ItemAdapter itemAdapter;
@@ -46,7 +45,6 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
         recyclerView = findViewById(R.id.list_items_container);
         emptyLayoutDisplay = findViewById(R.id.empty_layout_display);
         centerContainer = findViewById(R.id.center_container);
-        infoContainer = findViewById(R.id.info_container);
         backBtn = findViewById(R.id.back_btn);
         db = new DBHelper(this);
 
@@ -71,27 +69,16 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
         String listName = db.getListName(listId);
         listNameDisplay.setText(listName);
 
+        Toast.makeText(this, "Hold to edit or delete", Toast.LENGTH_SHORT).show();
+
         if (itemList.isEmpty()) {
             emptyLayoutDisplay.setVisibility(View.VISIBLE);
-            infoContainer.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             ScrollView.LayoutParams params = (ScrollView.LayoutParams) centerContainer.getLayoutParams();
             params.gravity = Gravity.CENTER;
             centerContainer.setLayoutParams(params);
-        } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    infoContainer.setVisibility(View.VISIBLE);
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            infoContainer.setVisibility(View.GONE);
-                        }
-                    }, 2000);
-                }
-            }, 2000);
+        } else {
 
             emptyLayoutDisplay.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
@@ -126,7 +113,6 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
     private void checkEmptyState() {
         if (itemList.isEmpty()) {
             emptyLayoutDisplay.setVisibility(View.VISIBLE);
-            infoContainer.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             ScrollView.LayoutParams params = (ScrollView.LayoutParams) centerContainer.getLayoutParams();
             params.gravity = Gravity.CENTER;

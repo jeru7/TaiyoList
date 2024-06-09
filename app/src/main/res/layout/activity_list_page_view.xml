@@ -44,29 +44,12 @@
             android:layout_centerVertical="true"
             />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/info_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-        android:background="@color/extra_color4"
-        android:layout_below="@id/top_heading">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hold an item to edit or delete"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/bold"
-            />
-
-    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollable_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/info_container"
+        android:layout_below="@id/top_heading"
         android:layout_marginTop="-2dp"
         android:padding="16dp">
 
