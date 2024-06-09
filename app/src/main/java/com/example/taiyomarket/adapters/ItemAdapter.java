@@ -1,5 +1,6 @@
 package com.example.taiyomarket.adapters;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,18 +71,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                                             }
                                             break;
                                         case 1:
-                                            long deleteItemId = item.getId();
-                                            boolean isDeleted = db.deleteItem(deleteItemId);
-                                            String itemNameDelete = item.getItemName();
-
-                                            if (isDeleted) {
-                                                itemList.remove(adapterPosition);
-                                                notifyItemRemoved(adapterPosition);
-                                                Toast.makeText(holder.itemView.getContext(), itemNameDelete + " deleted", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(holder.itemView.getContext(), "Failed to delete " + itemNameDelete, Toast.LENGTH_SHORT).show();
-                                            }
-                                            break;
+                                            deleteItem(position, holder.itemView.getContext());
                                     }
                                 }
                             });
@@ -91,6 +81,21 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 return false;
             }
         });
+    }
+
+    public void deleteItem(int position, Context context) {
+        Item itemToDelete = itemList.get(position);
+        long deleteItemId = itemToDelete.getId();
+        boolean isDeleted = db.deleteItem(deleteItemId);
+        String itemNameDelete = itemToDelete.getItemName();
+
+        if (isDeleted) {
+            itemList.remove(position);
+            notifyItemRemoved(position);
+            Toast.makeText(context, itemNameDelete + " deleted", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Failed to delete " + itemNameDelete, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

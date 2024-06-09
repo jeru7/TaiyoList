@@ -3,11 +3,13 @@ package com.example.taiyomarket.main;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class ListPageView extends AppCompatActivity  {
 
     List<Item> itemList;
     LinearLayout emptyLayoutDisplay, centerContainer;
+    RelativeLayout infoContainer;
     ImageView backBtn;
     private RecyclerView recyclerView;
     private DBHelper db;
@@ -40,6 +43,7 @@ public class ListPageView extends AppCompatActivity  {
         recyclerView = (RecyclerView) findViewById(R.id.list_items_container);
         emptyLayoutDisplay = (LinearLayout) findViewById(R.id.empty_layout_display);
         centerContainer = (LinearLayout) findViewById(R.id.center_container);
+        infoContainer = findViewById(R.id.info_container);
         backBtn = findViewById(R.id.back_btn);
         db = new DBHelper(this);
 
@@ -60,17 +64,30 @@ public class ListPageView extends AppCompatActivity  {
     }
 
     private void displayItemList(long listId) {
-        Log.d("ListPageView", "Fetching items for listId: " + listId);
         itemList = db.getItemsOnList(listId);
-        Log.d("ListPageView", "Number of items fetched: " + itemList.size());
 
         if (itemList.isEmpty()) {
             emptyLayoutDisplay.setVisibility(View.VISIBLE);
+            infoContainer.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             ScrollView.LayoutParams params = (ScrollView.LayoutParams) centerContainer.getLayoutParams();
             params.gravity = Gravity.CENTER;
             centerContainer.setLayoutParams(params);
         } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    infoContainer.setVisibility(View.VISIBLE);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            infoContainer.setVisibility(View.GONE);
+                        }
+                    }, 2000);
+                }
+            }, 2000);
+
             emptyLayoutDisplay.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             ScrollView.LayoutParams params = (ScrollView.LayoutParams) centerContainer.getLayoutParams();
