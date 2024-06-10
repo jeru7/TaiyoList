@@ -1,5 +1,6 @@
 package com.example.taiyomarket.main;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,7 +21,7 @@ import com.example.taiyomarket.database.DBHelper;
 
 public class ProfilePage extends AppCompatActivity {
 
-    LinearLayout settingsBtn, supportBtn, logoutBtn;
+    LinearLayout settingsBtn, supportBtn, logoutBtn, listPage;
     int userId;
     User currentUser;
     DBHelper db;
@@ -38,6 +40,7 @@ public class ProfilePage extends AppCompatActivity {
         settingsBtn = findViewById(R.id.settings);
         supportBtn = findViewById(R.id.support);
         logoutBtn = findViewById(R.id.logout);
+        listPage = findViewById(R.id.list_layout);
 
         userNameEl = findViewById(R.id.username);
         userEmailEl = findViewById(R.id.user_email);
@@ -81,8 +84,38 @@ public class ProfilePage extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showLogoutDialog();
+            }
+        });
 
+        listPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
+    public void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent i = new Intent(ProfilePage.this, WelcomePage.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }

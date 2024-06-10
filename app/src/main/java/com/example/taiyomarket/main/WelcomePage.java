@@ -1,5 +1,6 @@
 package com.example.taiyomarket.main;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -45,6 +46,14 @@ public class WelcomePage extends AppCompatActivity {
         register = (Button) findViewById(R.id.register_btn);
 
         attachBtnListener(signIn, register);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     public void attachBtnListener(Button sign_in, Button register) {
