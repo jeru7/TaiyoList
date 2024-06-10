@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "TAIYOMARKET";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 7;
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -95,6 +95,23 @@ public class DBHelper extends SQLiteOpenHelper{
         }
 
         if(cursor != null) {
+            cursor.close();
+        }
+
+        db.close();
+        return user;
+    }
+
+    public User getUserById(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        User user = null;
+
+        Cursor cursor = db.query("users", null, "user_id = ?", new String[]{String.valueOf(userId)}, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String userEmail = cursor.getString(cursor.getColumnIndex("email"));
+            String password = cursor.getString(cursor.getColumnIndex("password"));
+            user = new User(userId, userEmail, password);
             cursor.close();
         }
 

@@ -5,7 +5,7 @@ public class User {
     private int id;
     private String email;
     private String password;
-
+    private String username;
     private ArrayList<Integer> lists;
 
     public User(int id, String email, String password) {
@@ -14,6 +14,10 @@ public class User {
         this.password = password;
         this.lists = new ArrayList<>();
     };
+
+    public String getUsername() {
+        return username;
+    }
 
     public int getId() {
         return id;

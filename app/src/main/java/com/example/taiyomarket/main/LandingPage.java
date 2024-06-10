@@ -126,6 +126,15 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
                 displayList(userEmail);
             }
         });
+
+        profileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LandingPage.this, ProfilePage.class);
+                i.putExtra("userId", currentUser.getId());
+                startActivity(i);
+            }
+        });
     }
 
     public void startAddList() {

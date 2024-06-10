@@ -13,14 +13,25 @@
         android:theme="@style/Theme.TaiyoMarket"
         tools:targetApi="31">
         <activity
+            android:name=".main.SettingsPage"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".main.ProfilePage"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
             android:name=".main.EditPage"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".adapters.ItemAdapter"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".main.ListPageView"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".fragments.AddListPage"
             android:exported="false"

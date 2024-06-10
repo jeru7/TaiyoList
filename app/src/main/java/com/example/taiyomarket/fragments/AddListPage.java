@@ -64,6 +64,7 @@ public class AddListPage extends Fragment implements FragmentManager.OnBackStack
         emptyText = (TextView) view.findViewById(R.id.empty_text);
         itemText = (TextView) view.findViewById(R.id.item_text);
         db = new DBHelper(requireContext());
+        addItemFragment = new AddItemPage();
 
 //        kunin yung binasa ng landing page using bundle kanina
         if (getArguments() != null) {
@@ -135,13 +136,15 @@ public class AddListPage extends Fragment implements FragmentManager.OnBackStack
 //                    since nagrereturn siya ng id ng list, gagamitin natin siya para makapag pasok tayo ng item kay current list
                     listId = db.addList(userId, finalListName, dateCreated, lastUpdate);
 
+                    if(!addItemFragment.getItemList().isEmpty()) {
 //                    kunin yung temporary list sa additempage
-                    itemList = addItemFragment.getItemList();
+                        itemList = addItemFragment.getItemList();
 
 //                    then using for of (ewan ko ano tawag dito sa java pero same functionality ata sila ng for of sa js) magaadd tayo PER item sa list natin (NOTE: hawak natin yung current id ng new list)
-                    for (Item item : itemList) {
+                        for (Item item : itemList) {
 //                        PER iteration inaadd yung ISANG item
-                        db.addItemToList(listId, item.getItemName(), item.getQuantity());
+                            db.addItemToList(listId, item.getItemName(), item.getQuantity());
+                        }
                     }
 //                    simple toast to verify the user na created na yung list
                     Toast.makeText(requireContext(), finalListName + " created successfully", Toast.LENGTH_SHORT).show();
@@ -164,8 +167,7 @@ public class AddListPage extends Fragment implements FragmentManager.OnBackStack
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                set lang ng new AddItemPage
-                addItemFragment = new AddItemPage();
+//                set lang ng AddItemPage
                 addItemFragment.setItemList(itemList);
 
 //              open lang yung layout ni additempage

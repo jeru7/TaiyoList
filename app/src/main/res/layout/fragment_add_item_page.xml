@@ -26,7 +26,9 @@
             android:paddingHorizontal="16dp"
             android:fontFamily="@font/medium"
             android:hint="Item name..."
-            android:textSize="20sp"/>
+            android:singleLine="true"
+            android:textSize="20sp"
+            android:maxLength="24"/>
 
         <TextView
             android:id="@+id/quantity_text"

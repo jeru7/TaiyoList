@@ -27,6 +27,8 @@
         android:paddingVertical="16dp"
         android:hint="Name of the list"
         android:fontFamily="@font/medium"
+        android:singleLine="true"
+        android:maxLength="24"
         android:background="@drawable/input_border_white_bg"
         />
 
