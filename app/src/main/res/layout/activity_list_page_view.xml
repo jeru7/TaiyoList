@@ -99,6 +99,13 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    
+    <FrameLayout
+        android:id="@+id/switchable_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_heading"
+        />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_new_item"

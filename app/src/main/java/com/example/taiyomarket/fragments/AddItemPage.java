@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.taiyomarket.R;
 
 import com.example.taiyomarket.classes.Item;
+import com.example.taiyomarket.database.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,11 @@ public class AddItemPage extends Fragment{
     private ImageView incrementBtn, decrementBtn;
     private EditText itemNameField;
     private TextView quantityValue;
-    private List<Item> itemList;
+    private List<Item> itemList = new ArrayList<>();
+    private long listId;
+    boolean isNew;
     private LinearLayout recentlyAddedList;
+    DBHelper db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,12 +52,15 @@ public class AddItemPage extends Fragment{
         quantityValue = (TextView) view.findViewById(R.id.quantity_value);
         recentlyAddedList = view.findViewById(R.id.recently_added_list);
 
+        db = new DBHelper(getContext());
+
         attachButtonEvents(); // attach lang ng listeners sa mga buttons or button like elements
         return view;
     }
 
 //    method na ginagamit ni addlistpage, para mapasa niya yung temporary item list dito
     public void setItemList(List<Item> itemList) {
+        isNew = true;
         this.itemList = itemList;
     }
 
@@ -61,6 +68,15 @@ public class AddItemPage extends Fragment{
     //    reason: nilagay ko siya sa array/list muna para pag magccreate na ng list dun lang siya idadagdag sabay sabay (refer to createBtn ng addlistpage)
     public List<Item> getItemList() {
         return itemList;
+    }
+
+    public long getListId() {
+        return listId;
+    }
+
+    public void setListId(long listId) {
+        isNew = false;
+        this.listId = listId;
     }
 
     public void attachButtonEvents() {
@@ -84,7 +100,7 @@ public class AddItemPage extends Fragment{
                 if(!itemName.isEmpty()) {
 //                    pag meron create new item with the itemName at itemQuantity
                     Item item = new Item(itemName, itemQuantity);
-                    addItemToList(item);
+                    addItemToList(item, itemName, itemQuantity);
                 } else {
 //                    pag wala toast lang then do nothing
                     Toast.makeText(getContext(), "Please add an item name", Toast.LENGTH_SHORT).show();
@@ -122,12 +138,17 @@ public class AddItemPage extends Fragment{
     }
 
 //    called when add item is clicked
-    public void addItemToList(Item item) {
+    public void addItemToList(Item item, String itemName, int itemQuantity) {
 //        bali nirerefresh niya yung itemname field at quantity value
         itemNameField.setText("");
         quantityValue.setText("1");
 //        then add si item sa itemList(temporary list lang to)
         itemList.add(item);
+
+        if(!isNew) {
+            db.addItemToList(listId, itemName, itemQuantity);
+        }
+
 
 //        pasa lang yung name at quantity ni item para madisplay sa recently added
         displayRecentlyAdded(item.getItemName(), item.getQuantity());

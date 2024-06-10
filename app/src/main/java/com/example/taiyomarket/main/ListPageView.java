@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,8 +15,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +28,7 @@ import com.example.taiyomarket.R;
 import com.example.taiyomarket.adapters.ItemAdapter;
 import com.example.taiyomarket.classes.Item;
 import com.example.taiyomarket.database.DBHelper;
+import com.example.taiyomarket.fragments.AddItemPage;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,12 +38,15 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
 
     List<Item> itemList;
     LinearLayout emptyLayoutDisplay, centerContainer;
+    ScrollView mainPage;
+    FrameLayout switchableContainer;
     TextView listNameDisplay;
     ImageView backBtn, sortBtn;
     private RecyclerView recyclerView;
     ItemAdapter itemAdapter;
     private DBHelper db;
     private long listId;
+    Button addItem;
     boolean sortAsc, sortDesc,defaultSeq = true;
 
     @Override
@@ -49,17 +58,35 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
         recyclerView = findViewById(R.id.list_items_container);
         emptyLayoutDisplay = findViewById(R.id.empty_layout_display);
         centerContainer = findViewById(R.id.center_container);
+        switchableContainer = findViewById(R.id.switchable_view);
+        mainPage = findViewById(R.id.scrollable_container);
         backBtn = findViewById(R.id.back_btn);
         sortBtn = findViewById(R.id.sort_btn);
+        addItem = findViewById(R.id.add_new_item);
         db = new DBHelper(this);
 
         listId = getIntent().getLongExtra("listId", -1);
         Toast.makeText(this, "Hold to edit or delete", Toast.LENGTH_SHORT).show();
         attachButtonEvents();
         displayItemList(listId);
+        handleBackPress();
     }
 
     public void attachButtonEvents() {
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                AddItemPage addItemPage = new AddItemPage();
+                addItemPage.setListId(listId);
+                transaction.replace(R.id.switchable_view, addItemPage);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+                hideElements();
+            }
+        });
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +165,19 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
         }
     }
 
+    public void hideElements() {
+        addItem.setVisibility(View.GONE);
+        sortBtn.setVisibility(View.GONE);
+        mainPage.setVisibility(View.GONE);
+    }
+
+    public void showElements() {
+        addItem.setVisibility(View.VISIBLE);
+        sortBtn.setVisibility(View.VISIBLE);
+        mainPage.setVisibility(View.VISIBLE);
+        displayItemList(listId);
+    }
+
 
     private void showDeleteConfirmationDialog(final int position, final Item item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -185,6 +225,17 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
     @Override
     protected void onResume() {
         super.onResume();
-        displayItemList(listId);
+        showElements();
+    }
+
+    private void handleBackPress() {
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                    showElements();
+                }
+            }
+        });
     }
 }
