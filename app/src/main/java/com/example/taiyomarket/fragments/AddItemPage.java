@@ -149,7 +149,6 @@ public class AddItemPage extends Fragment{
             db.addItemToList(listId, itemName, itemQuantity);
         }
 
-
 //        pasa lang yung name at quantity ni item para madisplay sa recently added
         displayRecentlyAdded(item.getItemName(), item.getQuantity());
     }

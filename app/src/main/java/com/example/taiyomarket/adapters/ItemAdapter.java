@@ -50,6 +50,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 holder.checkbox.setImageResource(item.isChecked() ? R.drawable.uncheck : R.drawable.checked);
                 DBHelper db = new DBHelper(v.getContext());
                 db.updateIsChecked(item.getId(), item.isChecked());
+                notifyItemChanged(holder.getAdapterPosition());
             }
         });
 

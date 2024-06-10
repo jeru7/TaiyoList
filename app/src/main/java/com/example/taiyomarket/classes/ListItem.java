@@ -19,6 +19,10 @@ public class ListItem {
         this.itemList = new ArrayList<>();
     }
 
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
+
     public int getId() {
         return id;
     }
@@ -30,6 +34,7 @@ public class ListItem {
     public String getLastUpdate() {
         return lastUpdate;
     }
+
 
     public String getDateCreated() {
         return dateCreated;

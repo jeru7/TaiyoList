@@ -208,7 +208,7 @@ public class AddListPage extends Fragment implements FragmentManager.OnBackStack
 
 //    get current date lang, since dalawa may need neto, ginawan ko na lang ng method
     private String getCurrentDateTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date currentDate = new Date();
         return dateFormat.format(currentDate);
     }

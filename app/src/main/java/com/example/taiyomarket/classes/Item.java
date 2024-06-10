@@ -13,12 +13,13 @@ public class Item {
     private String itemName;
     private int quantity;
     private String dateCreated;
-    private boolean checked = false;
+    private boolean checked;
 
     public Item(String itemName, int quantity) {
         this.itemName = itemName;
         this.quantity = quantity;
         this.dateCreated = getCurrentDate();
+        this.checked = false;
     }
 
     public void setId(long id) {

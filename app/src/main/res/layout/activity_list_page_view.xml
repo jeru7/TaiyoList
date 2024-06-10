@@ -105,6 +105,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_heading"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="32dp"
         />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

@@ -47,7 +47,7 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
     private DBHelper db;
     private long listId;
     Button addItem;
-    boolean sortAsc, sortDesc,defaultSeq = true;
+    boolean sortAsc, sortDesc,defaultSeq = true, changes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

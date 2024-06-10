@@ -253,7 +253,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public boolean updateIsChecked(long itemId, boolean checked) {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
-            String sql = "UPDATE item SET isChecked = ? WHERE item_id = ?";
+            String sql = "UPDATE item SET checked = ? WHERE item_id = ?";
             db.execSQL(sql, new Object[]{checked,itemId});
             return true;
         } catch (Exception e) {

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -145,6 +146,7 @@ public class LandingPage extends AppCompatActivity implements AddListPage.OnAddL
     public void displayList(String email) {
 //        fetch na latest list na meron si user
         List<ListItem> list = db.getLists(email);
+        Log.d("LandingPage", list.toString());
 
         if (list != null && !list.isEmpty()) {
             //        logic for asc
