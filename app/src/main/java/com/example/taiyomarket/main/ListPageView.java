@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,6 +24,8 @@ import com.example.taiyomarket.adapters.ItemAdapter;
 import com.example.taiyomarket.classes.Item;
 import com.example.taiyomarket.database.DBHelper;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListPageView extends AppCompatActivity implements ItemAdapter.OnItemEditClickListener, ItemAdapter.OnItemDeleteClickListener {
@@ -30,11 +33,12 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
     List<Item> itemList;
     LinearLayout emptyLayoutDisplay, centerContainer;
     TextView listNameDisplay;
-    ImageView backBtn;
+    ImageView backBtn, sortBtn;
     private RecyclerView recyclerView;
     ItemAdapter itemAdapter;
     private DBHelper db;
     private long listId;
+    boolean sortAsc, sortDesc,defaultSeq = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +50,11 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
         emptyLayoutDisplay = findViewById(R.id.empty_layout_display);
         centerContainer = findViewById(R.id.center_container);
         backBtn = findViewById(R.id.back_btn);
+        sortBtn = findViewById(R.id.sort_btn);
         db = new DBHelper(this);
 
         listId = getIntent().getLongExtra("listId", -1);
-
+        Toast.makeText(this, "Hold to edit or delete", Toast.LENGTH_SHORT).show();
         attachButtonEvents();
         displayItemList(listId);
     }
@@ -62,14 +67,35 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
             }
         });
 
+        sortBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (defaultSeq) {
+                    sortAsc = true;
+                    sortDesc = false;
+                    defaultSeq = false;
+                    sortBtn.setImageResource(R.drawable.sort_asc);
+                } else if (sortAsc) {
+                    sortAsc = false;
+                    sortDesc = true;
+                    sortBtn.setImageResource(R.drawable.sort_desc);
+                } else if (sortDesc) {
+                    sortAsc = false;
+                    sortDesc = false;
+                    defaultSeq = true;
+                    sortBtn.setImageResource(R.drawable.sort_default);
+                }
+                displayItemList(listId);
+            }
+        });
+
     }
 
     private void displayItemList(long listId) {
+        // Retrieve items from the database
         itemList = db.getItemsOnList(listId);
         String listName = db.getListName(listId);
         listNameDisplay.setText(listName);
-
-        Toast.makeText(this, "Hold to edit or delete", Toast.LENGTH_SHORT).show();
 
         if (itemList.isEmpty()) {
             emptyLayoutDisplay.setVisibility(View.VISIBLE);
@@ -77,15 +103,31 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
             ScrollView.LayoutParams params = (ScrollView.LayoutParams) centerContainer.getLayoutParams();
             params.gravity = Gravity.CENTER;
             centerContainer.setLayoutParams(params);
-
         } else {
+            if (sortAsc) {
+                Collections.sort(itemList, new Comparator<Item>() {
+                    @Override
+                    public int compare(Item item1, Item item2) {
+                        return item1.getItemName().compareToIgnoreCase(item2.getItemName());
+                    }
+                });
+            } else if (sortDesc) {
+                Collections.sort(itemList, new Comparator<Item>() {
+                    @Override
+                    public int compare(Item item1, Item item2) {
+                        return item2.getItemName().compareToIgnoreCase(item1.getItemName());
+                    }
+                });
+            }
 
+            // Hide empty layout and show recyclerView
             emptyLayoutDisplay.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             ScrollView.LayoutParams params = (ScrollView.LayoutParams) centerContainer.getLayoutParams();
             params.gravity = Gravity.TOP;
             centerContainer.setLayoutParams(params);
 
+            // Set up RecyclerView with sorted itemList
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             itemAdapter = new ItemAdapter(itemList);
             recyclerView.setAdapter(itemAdapter);
@@ -95,6 +137,7 @@ public class ListPageView extends AppCompatActivity implements ItemAdapter.OnIte
             itemAdapter.setOnItemDeleteClickListener(this);
         }
     }
+
 
     private void showDeleteConfirmationDialog(final int position, final Item item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

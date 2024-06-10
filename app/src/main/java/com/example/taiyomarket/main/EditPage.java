@@ -90,6 +90,7 @@ public class EditPage extends AppCompatActivity {
                     boolean success = db.updateItem(item.getId(), item.getItemName(), item.getQuantity());
 
                     if (success) {
+                        finish();
                         Toast.makeText(EditPage.this, "Item updated successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditPage.this, "Failed to update item", Toast.LENGTH_SHORT).show();
