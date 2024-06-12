@@ -271,30 +271,21 @@ public class DBHelper extends SQLiteOpenHelper{
 //    UPDATE
     public boolean updateItem(long itemId, String itemName, int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
-        try {
-            String sql = "UPDATE item SET item_name = ?, quantity = ? WHERE item_id = ?";
-            db.execSQL(sql, new Object[]{itemName, quantity, itemId});
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            db.close();
-        }
+        ContentValues values = new ContentValues();
+        values.put("item_name", itemName);
+        values.put("quantity", quantity);
+        int rowsAffected = db.update("item", values, "item_id = ?", new String[]{String.valueOf(itemId)});
+        db.close();
+        return rowsAffected > 0;
     }
 
     public boolean updateIsChecked(long itemId, boolean checked) {
         SQLiteDatabase db = this.getWritableDatabase();
-        try {
-            String sql = "UPDATE item SET checked = ? WHERE item_id = ?";
-            db.execSQL(sql, new Object[]{checked,itemId});
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            db.close();
-        }
+        ContentValues values = new ContentValues();
+        values.put("checked", checked ? 1 : 0);
+        int rowsAffected = db.update("item", values, "item_id = ?", new String[]{String.valueOf(itemId)});
+        db.close();
+        return rowsAffected > 0;
     }
 
     public boolean setUsernameById(long userId, String newUsername) {
