@@ -60,7 +60,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     //    adds a list to the user's grocery_list
-    public long addList(int userId, String listName, String dateCreated, String lastUpdate) {
+    public long addList(long userId, String listName, String dateCreated, String lastUpdate) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -102,7 +102,7 @@ public class DBHelper extends SQLiteOpenHelper{
         return user;
     }
 
-    public User getUserById(int userId) {
+    public User getUserById(long userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         User user = null;
 
@@ -117,6 +117,21 @@ public class DBHelper extends SQLiteOpenHelper{
 
         db.close();
         return user;
+    }
+
+    public String getUsernameById(long userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String username = null;
+
+        Cursor cursor = db.query("users", new String[]{"user_name"}, "user_id = ?", new String[]{String.valueOf(userId)}, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            username = cursor.getString(cursor.getColumnIndex("user_name"));
+            cursor.close();
+        }
+
+        db.close();
+        return username;
     }
 
     //    checks if the user exists within the database (Sign in)
@@ -229,6 +244,7 @@ public class DBHelper extends SQLiteOpenHelper{
         db.close();
         return item;
     }
+
 //    DELETE
 
     public boolean deleteItem(long itemId) {
@@ -273,6 +289,21 @@ public class DBHelper extends SQLiteOpenHelper{
             String sql = "UPDATE item SET checked = ? WHERE item_id = ?";
             db.execSQL(sql, new Object[]{checked,itemId});
             return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.close();
+        }
+    }
+
+    public boolean setUsernameById(long userId, String newUsername) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            values.put("user_name", newUsername);
+            int rowsAffected = db.update("users", values, "user_id = ?", new String[]{String.valueOf(userId)});
+            return rowsAffected > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

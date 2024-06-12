@@ -22,7 +22,7 @@ import com.example.taiyomarket.database.DBHelper;
 public class ProfilePage extends AppCompatActivity {
 
     LinearLayout settingsBtn, supportBtn, logoutBtn, listPage;
-    int userId;
+    long userId;
     User currentUser;
     DBHelper db;
     TextView userNameEl, userEmailEl;
@@ -46,7 +46,7 @@ public class ProfilePage extends AppCompatActivity {
         userEmailEl = findViewById(R.id.user_email);
 
         Intent intent = getIntent();
-        userId = intent.getIntExtra("userId", -1);
+        userId = intent.getLongExtra("userId", -1);
         db = new DBHelper(this);
         currentUser = db.getUserById(userId);
         attachElements();
@@ -54,7 +54,7 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     public void attachElements() {
-        String username = currentUser.getUsername();
+        String username = db.getUsernameById(userId);
         if(username != null) {
             userNameEl.setText(username);
         } else {
@@ -70,6 +70,7 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ProfilePage.this, SettingsPage.class);
+                i.putExtra("userId", userId);
                 startActivity(i);
             }
         });
@@ -118,4 +119,9 @@ public class ProfilePage extends AppCompatActivity {
         dialog.show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        attachElements();
+    }
 }

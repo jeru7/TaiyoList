@@ -49,9 +49,9 @@ public class Item {
         return quantity;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
-    }
+//    public String getDateCreated() {
+//        return dateCreated;
+//    }
 
     public String getItemName() {
         return itemName;

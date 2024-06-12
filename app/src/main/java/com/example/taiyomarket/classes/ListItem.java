@@ -35,16 +35,16 @@ public class ListItem {
         return lastUpdate;
     }
 
-
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public List<Item> getItemList() {
-        return itemList;
-    }
-
-    public void addItem(Item item) {
-        itemList.add(item);
-    }
+//
+//    public String getDateCreated() {
+//        return dateCreated;
+//    }
+//
+//    public List<Item> getItemList() {
+//        return itemList;
+//    }
+//
+//    public void addItem(Item item) {
+//        itemList.add(item);
+//    }
 }

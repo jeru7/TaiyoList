@@ -91,7 +91,7 @@
             android:paddingVertical="16dp"
             android:paddingHorizontal="32dp"
             android:orientation="horizontal"
-            android:background="@drawable/profile_container"
+            android:background="@drawable/white_container"
             android:gravity="center_vertical">
 
             <ImageView
@@ -120,7 +120,7 @@
             android:paddingHorizontal="32dp"
             android:orientation="horizontal"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/profile_container"
+            android:background="@drawable/white_container"
             android:gravity="center_vertical">
 
             <ImageView
@@ -148,7 +148,7 @@
             android:paddingVertical="16dp"
             android:paddingHorizontal="32dp"
             android:orientation="horizontal"
-            android:background="@drawable/profile_container"
+            android:background="@drawable/white_container"
             android:gravity="center_vertical">
 
             <ImageView

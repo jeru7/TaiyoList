@@ -43,7 +43,7 @@ public class AddListPage extends Fragment implements FragmentManager.OnBackStack
     Button createBtn;
     TextView emptyText, itemText;
     String userEmail;
-    int userId;
+    long userId;
     DBHelper db;
     private List<Item> itemList = new ArrayList<>();
     private long listId;

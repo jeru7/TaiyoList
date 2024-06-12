@@ -1,10 +1,318 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainColor"
     tools:context=".main.SettingsPage">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/top_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="8dp"
+        android:background="@color/extra_color1">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:srcCompat="@drawable/back_arrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:layout_centerInParent="true"
+            android:textSize="24sp"
+            android:fontFamily="@font/bold"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/top_heading"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="32dp">
+
+        <RelativeLayout
+            android:id="@+id/username_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_container"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:id="@+id/user_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/user_icon"
+                />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_toRightOf="@id/user_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="jack"
+                android:fontFamily="@font/medium"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                />
+
+            <ImageView
+                android:id="@+id/edit_username"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/edit_icon"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/email_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_container"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/email_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/email_icon"
+                />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="jack"
+                android:fontFamily="@font/medium"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/email_icon"
+                />
+
+            <ImageView
+                android:id="@+id/edit_email"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/edit_icon"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Change Password"
+            android:fontFamily="@font/medium"
+            />
+
+        <RelativeLayout
+            android:id="@+id/password_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_container"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:alpha=".5">
+
+            <ImageView
+                android:id="@+id/password_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/lock_icon"
+                />
+
+            <TextView
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Enter old password"
+                android:fontFamily="@font/medium"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/password_icon"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/new_password_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_container"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:alpha=".5">
+
+            <ImageView
+                android:id="@+id/new_password_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/lock_icon"
+                />
+
+            <TextView
+                android:id="@+id/new_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Enter new password"
+                android:fontFamily="@font/medium"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/new_password_icon"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/notification_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_container"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="32dp">
+
+            <ImageView
+                android:id="@+id/notification_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/notification_icon"
+                />
+
+            <TextView
+                android:id="@+id/notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Notifications"
+                android:fontFamily="@font/medium"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/notification_icon"
+                />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_container"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/list_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/list_icon"
+                />
+
+            <TextView
+                android:id="@+id/list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Lists"
+                android:fontFamily="@font/medium"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/list_icon"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/passcode_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_container"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/passcode_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/lock_icon"
+                />
+
+            <TextView
+                android:id="@+id/passcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Passcode"
+                android:fontFamily="@font/medium"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/passcode_icon"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/trash_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_container"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/trash_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/trash_icon"
+                />
+
+            <TextView
+                android:id="@+id/trash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Trash"
+                android:fontFamily="@font/medium"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/trash_icon"
+                />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
